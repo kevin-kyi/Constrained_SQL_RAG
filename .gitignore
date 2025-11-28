@@ -1,6 +1,7 @@
 # Ignore downloaded Spider dataset
-spider_dataset/
 spider_dataset/*
+!spider_dataset/.gitkeep
+
 
 # Ignore caches
 data/
