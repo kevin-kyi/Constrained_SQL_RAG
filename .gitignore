@@ -1,0 +1,12 @@
+# Ignore downloaded Spider dataset
+spider_dataset/
+spider_dataset/*
+
+# Ignore caches
+data/
+*.sqlite
+
+# Python ignores
+__pycache__/
+*.pyc
+.env
