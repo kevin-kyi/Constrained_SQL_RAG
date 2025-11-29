@@ -1,0 +1,21 @@
+[project]
+name = "constrained-sql-rag"
+version = "0.1.0"
+description = "Table retrieval utilities for SPIDER-style SQL schemas"
+requires-python = ">=3.10"
+dependencies = [
+  "rank-bm25",
+  "numpy",
+  "torch",
+  "transformers",
+  "sentencepiece",
+]
+
+[tool.setuptools]
+packages = ["src"]
+
+[tool.black]
+line-length = 100
+
+[tool.isort]
+profile = "black"
