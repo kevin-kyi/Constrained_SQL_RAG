@@ -5,10 +5,43 @@ from collections import defaultdict, deque
 from pathlib import Path
 
 
-# Where download_spider.py put the data
-SPIDER_ROOT = Path("spider_dataset") / "spider"
+# We store the actual dataset files here:
+#   spider_dataset/spider_data/
+SPIDER_ROOT = Path("spider_dataset") / "spider_data"
 TABLES_JSON = SPIDER_ROOT / "tables.json"
-TRAIN_JSON = SPIDER_ROOT / "train_spider.json"  # or dev.json if you prefer
+TRAIN_JSON = SPIDER_ROOT / "train_spider.json"  # you can change to dev.json if you prefer
+
+
+def _check_files_exist():
+    """Ensure the expected Spider data files exist and give a helpful error if not."""
+    missing = []
+    for path in [SPIDER_ROOT, TABLES_JSON, TRAIN_JSON]:
+        if path == SPIDER_ROOT:
+            if not path.exists():
+                missing.append(str(path))
+        else:
+            if not path.is_file():
+                missing.append(str(path))
+
+    if missing:
+        msg_lines = [
+            "[ERROR] Missing Spider data files.",
+            "The following paths were not found:",
+            *[f"  - {m}" for m in missing],
+            "",
+            "Make sure you have downloaded the official Spider dataset from:",
+            "  https://yale-lily.github.io/spider",
+            "and placed these inside spider_dataset/spider_data/:",
+            "  - tables.json",
+            "  - train_spider.json",
+            "  - train_others.json",
+            "  - dev.json",
+            "  - database/   (directory of DBs)",
+            "",
+            "You can first run: python scripts/download_spider.py",
+            "to set up the directory layout (spider_dataset/spider_data/).",
+        ]
+        raise SystemExit("\n".join(msg_lines))
 
 
 def load_tables_schema():
@@ -33,7 +66,7 @@ def load_tables_schema():
             t1 = col_to_table[col1]
             t2 = col_to_table[col2]
             if t1 == -1 or t2 == -1:
-                continue  # skip special "all tables" column index
+                continue  # skip special "all tables" index
             adj[t1].add(t2)
             adj[t2].add(t1)
 
@@ -71,7 +104,7 @@ def sample_tables(schema_by_db, n_samples=5, seed=42):
     samples = []
 
     db_ids = list(schema_by_db.keys())
-    while len(samples) < n_samples:
+    while len(samples) < n_samples and db_ids:
         db_id = random.choice(db_ids)
         schema = schema_by_db[db_id]
         table_names = schema["table_names"]
@@ -96,7 +129,6 @@ def inspect_tables_and_fks(schema_by_db, n_samples=5):
         print(f"\n[{i}] db_id = {db_id}, start_table = {start_name} (idx={t_idx})")
 
         dist = bfs_hops_from_table(adj, t_idx)
-        # Group by hop distance
         hops = defaultdict(list)
         for tbl_idx, d in dist.items():
             hops[d].append(table_names[tbl_idx])
@@ -120,11 +152,7 @@ def inspect_questions(n_samples=5, seed=123):
 
 
 def main():
-    if not SPIDER_ROOT.exists():
-        raise SystemExit(
-            f"Spider root {SPIDER_ROOT} not found. Did you run download_spider.py?"
-        )
-
+    _check_files_exist()
     schema_by_db = load_tables_schema()
     inspect_tables_and_fks(schema_by_db, n_samples=5)
     inspect_questions(n_samples=5)
