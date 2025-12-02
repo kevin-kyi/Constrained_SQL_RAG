@@ -9,6 +9,9 @@ dependencies = [
   "torch",
   "transformers",
   "sentencepiece",
+  "lm-format-enforcer",
+  "gbnf",
+  "tqdm",
 ]
 
 [tool.setuptools]
