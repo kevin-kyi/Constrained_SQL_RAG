@@ -19,6 +19,7 @@ or:
 """
 
 import json
+import os
 import sqlite3
 import sys
 from pathlib import Path
@@ -41,6 +42,7 @@ from schema_to_prompt import (  # type: ignore
     load_schema_entries,
     TABLES_JSON,
 )
+from sql_gbnf import build_sqlite_prefix_allowed_tokens_fn, load_sqlite_grammar  # type: ignore
 
 SPIDER_DATA_ROOT = REPO_ROOT / "spider_dataset" / "spider_data"
 TRAIN_JSON = SPIDER_DATA_ROOT / "train_spider.json"
@@ -48,6 +50,8 @@ DEV_JSON = SPIDER_DATA_ROOT / "dev.json"
 DB_DIR = SPIDER_DATA_ROOT / "database"
 
 MODEL_NAME = "defog/sqlcoder-7b-2"  # change if you use a different SQLCoder variant
+USE_GBNF = os.environ.get("USE_GBNF", "1") not in {"0", "false", "False"}
+SQLITE_GBNF_OVERRIDE = os.environ.get("SQLITE_GBNF_PATH")
 
 
 # ---------------------------------------------------------------------------
@@ -107,9 +111,13 @@ def generate_sql(model, tokenizer, prompt: str, max_new_tokens: int = 256) -> st
             do_sample=False,
             num_beams=4,
             early_stopping=True,
+            prefix_allowed_tokens_fn=generate_sql.prefix_allowed_tokens_fn,  # type: ignore[attr-defined]
         )
     full_text = tokenizer.decode(output_ids[0], skip_special_tokens=True)
     return full_text
+
+
+generate_sql.prefix_allowed_tokens_fn = None  # type: ignore[attr-defined]
 
 
 def extract_sql_from_output(full_text: str) -> str:
@@ -214,6 +222,15 @@ def main():
 
     # Load SQLCoder
     tokenizer, model = load_model_and_tokenizer()
+    if USE_GBNF:
+        grammar_text = load_sqlite_grammar(SQLITE_GBNF_OVERRIDE) if SQLITE_GBNF_OVERRIDE else load_sqlite_grammar()
+        generate_sql.prefix_allowed_tokens_fn = build_sqlite_prefix_allowed_tokens_fn(
+            tokenizer,
+            grammar_text,
+        )
+        print("[INFO] Enabled SQL grammar enforcement via GBNF.")
+    else:
+        generate_sql.prefix_allowed_tokens_fn = None
 
     # Import prompt builder
     from schema_to_prompt import build_prompt_for_entry  # type: ignore

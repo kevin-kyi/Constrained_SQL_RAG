@@ -14,3 +14,8 @@ Once you follow these step /spider_dataset should have /spider_dataset/spider wh
 - Query tables and get JSON output of candidate tables:  
   `python scripts/query_tables.py --query "flights and airports" --top-k 3 --mode hybrid`  
   Outputs `{question, mode, candidate_tables: [{db_id, table_name, columns, score}], db_id (if single)}`.
+
+## Grammar-constrained SQL generation
+- SQL syntax is enforced with a SQLite-flavored GBNF grammar at `src/sql/grammars/sqlite.gbnf`.
+- `src/sql_gbnf.py` exposes `build_sqlite_prefix_allowed_tokens_fn(tokenizer, grammar_text)` to plug into `transformers.generate`.
+- The SQLCoder smoke test (`src/test_scripts/test_sqlcoder.py`) now uses the grammar by default; disable with `USE_GBNF=0` or point to a custom grammar via `SQLITE_GBNF_PATH`.

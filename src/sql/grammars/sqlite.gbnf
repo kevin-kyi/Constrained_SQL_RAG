@@ -1,0 +1,129 @@
+root ::= ws? statement ws? (";")? ws?
+
+statement ::= with_clause? select_stmt
+
+with_clause ::= WITH ws cte_def (ws? "," ws? cte_def)*
+cte_def ::= name ws AS ws "(" ws? select_stmt ws? ")"
+
+select_stmt ::= select_chain (ws ORDER ws BY ws order_list)? (ws LIMIT ws limit_clause)?
+select_chain ::= select_core (ws compound_operator ws select_core)*
+compound_operator ::= UNION (ws ALL)? | INTERSECT | EXCEPT
+
+select_core ::= SELECT ws distinct? ws? result_columns from_clause? where_clause? group_clause? having_clause? order_by_clause? limit_clause_opt?
+distinct ::= DISTINCT | ALL
+
+from_clause ::= ws FROM ws from_sources
+where_clause ::= ws WHERE ws expr
+group_clause ::= ws GROUP ws BY ws expr_list
+having_clause ::= ws HAVING ws expr
+order_by_clause ::= ws ORDER ws BY ws order_list
+limit_clause_opt ::= ws LIMIT ws limit_clause
+
+result_columns ::= result_column (ws? "," ws? result_column)*
+result_column ::= "*" | table_qualifier "*" | expr (ws alias)?
+table_qualifier ::= name ws? "." ws?
+alias ::= AS ws name | name
+
+from_sources ::= from_item (ws? "," ws? from_item)*
+from_item ::= joined_source
+joined_source ::= table_factor (ws join_clause)*
+table_factor ::= table_name (ws alias)? | "(" ws? select_stmt ws? ")" (ws alias)?
+table_name ::= name (ws? "." ws? name)?
+
+join_clause ::= join_type ws table_factor (ws join_condition)?
+join_type ::= (NATURAL ws)? ((LEFT ws OUTER? ws) | (RIGHT ws OUTER? ws) | (FULL ws OUTER? ws) | (INNER ws) | (CROSS ws))? JOIN
+join_condition ::= ON ws expr | USING ws "(" ws? name (ws? "," ws? name)* ws? ")"
+
+order_list ::= order_term (ws? "," ws? order_term)*
+order_term ::= expr (ws (ASC | DESC))?
+limit_clause ::= numeric_literal (ws OFFSET ws numeric_literal)? | numeric_literal ws? "," ws? numeric_literal
+
+expr_list ::= expr (ws? "," ws? expr)*
+
+expr ::= or_expr
+or_expr ::= and_expr (ws OR ws and_expr)*
+and_expr ::= not_expr (ws AND ws not_expr)*
+not_expr ::= NOT ws not_expr | comparison
+comparison ::= additive comp_tail?
+comp_tail ::= ws comp_operator ws additive | ws comp_like ws additive | ws NOT ws comp_like ws additive | ws IN ws? "(" ws? (select_stmt | expr_list) ws? ")" | ws NOT ws IN ws? "(" ws? (select_stmt | expr_list) ws? ")" | ws BETWEEN ws additive ws AND ws additive | ws NOT ws BETWEEN ws additive ws AND ws additive | ws IS ws NOT? ws (NULL | TRUE | FALSE | additive)
+comp_operator ::= "=" | "==" | "!=" | "<>" | "<=" | ">=" | "<" | ">"
+comp_like ::= LIKE | GLOB | REGEXP
+additive ::= term (ws add_op ws term)*
+add_op ::= "+" | "-" | "||"
+term ::= factor (ws mul_op ws factor)*
+mul_op ::= "*" | "/" | "%"
+factor ::= literal | column_ref | function_call | exists_expr | "(" ws? expr ws? ")" | "(" ws? select_stmt ws? ")" | case_expr | "-" ws? factor
+column_ref ::= name (ws? "." ws? name)? (ws? "." ws? name)?
+function_call ::= name ws? "(" ws? ("*" | distinct? ws? expr (ws? "," ws? expr)*)? ws? ")"
+exists_expr ::= EXISTS ws "(" ws? select_stmt ws? ")"
+case_expr ::= CASE ws when_clause+ (ws ELSE ws expr)? ws END
+when_clause ::= WHEN ws expr ws THEN ws expr
+
+literal ::= numeric_literal | string_literal | NULL | TRUE | FALSE
+numeric_literal ::= "-"? digit+ ("." digit+)? (exp_part)?
+exp_part ::= [eE] [+-]? digit+
+string_literal ::= "'" string_char_single* "'" | "\"" string_char_double* "\""
+string_char_single ::= [^'\\] | "\\'" | "''"
+string_char_double ::= [^\\""] | "\\\"" | "\"\""
+digit ::= [0-9]
+
+name ::= quoted_identifier | identifier
+identifier ::= ident_start ident_char*
+ident_start ::= [A-Za-z_]
+ident_char ::= [A-Za-z0-9_]
+quoted_identifier ::= "\"" quoted_body "\"" | "`" backtick_body "`" | "[" bracket_body "]"
+quoted_body ::= quoted_char*
+quoted_char ::= [^\"] | "\"\""
+backtick_body ::= backtick_char*
+backtick_char ::= [^`] | "``"
+bracket_body ::= bracket_char*
+bracket_char ::= [^\]]
+
+ws ::= [ \t\r\n]+
+
+SELECT ::= [sS][eE][lL][eE][cC][tT]
+WITH ::= [wW][iI][tT][hH]
+AS ::= [aA][sS]
+FROM ::= [fF][rR][oO][mM]
+WHERE ::= [wW][hH][eE][rR][eE]
+GROUP ::= [gG][rR][oO][uU][pP]
+BY ::= [bB][yY]
+HAVING ::= [hH][aA][vV][iI][nN][gG]
+ORDER ::= [oO][rR][dD][eE][rR]
+LIMIT ::= [lL][iI][mM][iI][tT]
+OFFSET ::= [oO][fF][fF][sS][eE][tT]
+UNION ::= [uU][nN][iI][oO][nN]
+INTERSECT ::= [iI][nN][tT][eE][rR][sS][eE][cC][tT]
+EXCEPT ::= [eE][xX][cC][eE][pP][tT]
+DISTINCT ::= [dD][iI][sS][tT][iI][nN][cC][tT]
+ALL ::= [aA][lL][lL]
+JOIN ::= [jJ][oO][iI][nN]
+INNER ::= [iI][nN][nN][eE][rR]
+LEFT ::= [lL][eE][fF][tT]
+RIGHT ::= [rR][iI][gG][hH][tT]
+FULL ::= [fF][uU][lL][lL]
+CROSS ::= [cC][rR][oO][sS][sS]
+OUTER ::= [oO][uU][tT][eE][rR]
+NATURAL ::= [nN][aA][tT][uU][rR][aA][lL]
+ON ::= [oO][nN]
+USING ::= [uU][sS][iI][nN][gG]
+AND ::= [aA][nN][dD]
+OR ::= [oO][rR]
+NOT ::= [nN][oO][tT]
+IN ::= [iI][nN]
+BETWEEN ::= [bB][eE][tT][wW][eE][eE][nN]
+IS ::= [iI][sS]
+NULL ::= [nN][uU][lL][lL]
+TRUE ::= [tT][rR][uU][eE]
+FALSE ::= [fF][aA][lL][sS][eE]
+LIKE ::= [lL][iI][kK][eE]
+GLOB ::= [gG][lL][oO][bB]
+REGEXP ::= [rR][eE][gG][eE][xX][pP]
+CASE ::= [cC][aA][sS][eE]
+WHEN ::= [wW][hH][eE][nN]
+THEN ::= [tT][hH][eE][nN]
+ELSE ::= [eE][lL][sS][eE]
+END ::= [eE][nN][dD]
+EXISTS ::= [eE][xX][iI][sS][tT][sS]
+ASC ::= [aA][sS][cC]
+DESC ::= [dD][eE][sS][cC]
