@@ -1,32 +1,26 @@
-#!/usr/bin/env python
-
 from __future__ import annotations
 
 import argparse
 import json
-import os
-import sqlite3
+import random
 import sys
-import time
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Tuple
 
-import torch
-from tqdm import tqdm
-from transformers import AutoModelForCausalLM, AutoTokenizer
-
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+THIS_FILE = Path(__file__).resolve()
+PROJECT_ROOT = THIS_FILE.parents[1]   
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-DATA_ROOT = PROJECT_ROOT / "spider_dataset" / "spider_data"
-TABLES_JSON_PATH = DATA_ROOT / "tables.json"
-DATABASE_DIR = DATA_ROOT / "database"
-
-from src.config import PipelineConfig
+from src.config import DEFAULT_CONFIG, PipelineConfig
 from src.schema_to_prompt import SpiderSchema, build_prompt_for_entry
-from src.sql_gbnf import build_sqlite_prefix_allowed_tokens_fn, load_sqlite_grammar
-from src.table_retrieval.schemas import flatten_tables, load_spider_schemas
+from src.sql_gbnf import (
+    build_sqlite_prefix_allowed_tokens_fn,
+    load_sqlite_grammar,
+)
+from src.table_retrieval.schemas import (
+    flatten_tables,
+    load_spider_schemas,
+)
 from src.table_retrieval.retriever import TableRetriever
 
 
