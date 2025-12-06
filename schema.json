@@ -1,0 +1,5490 @@
+[
+  {
+    "db_id": "world_1",
+    "question_id": 0,
+    "question": "What are the name, independence year, and surface area of the country with the smallest population?",
+    "candidate_tables": [
+      {
+        "table_name": "country",
+        "columns": [
+          [
+            "Code",
+            "text"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Continent",
+            "text"
+          ],
+          [
+            "Region",
+            "text"
+          ],
+          [
+            "SurfaceArea",
+            "number"
+          ],
+          [
+            "IndepYear",
+            "number"
+          ],
+          [
+            "Population",
+            "number"
+          ],
+          [
+            "LifeExpectancy",
+            "number"
+          ],
+          [
+            "GNP",
+            "number"
+          ],
+          [
+            "GNPOld",
+            "number"
+          ],
+          [
+            "LocalName",
+            "text"
+          ],
+          [
+            "GovernmentForm",
+            "text"
+          ],
+          [
+            "HeadOfState",
+            "text"
+          ],
+          [
+            "Capital",
+            "number"
+          ],
+          [
+            "Code2",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Code"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": []
+  },
+  {
+    "db_id": "orchestra",
+    "question_id": 1,
+    "question": "What are years of founding for orchestras that have had more than a single performance?",
+    "candidate_tables": [
+      {
+        "table_name": "orchestra",
+        "columns": [
+          [
+            "Orchestra_ID",
+            "number"
+          ],
+          [
+            "Orchestra",
+            "text"
+          ],
+          [
+            "Conductor_ID",
+            "number"
+          ],
+          [
+            "Record_Company",
+            "text"
+          ],
+          [
+            "Year_of_Founded",
+            "number"
+          ],
+          [
+            "Major_Record_Format",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Orchestra_ID"
+        ],
+        "foreign_keys": [
+          [
+            "orchestra.Conductor_ID",
+            "conductor.Conductor_ID"
+          ]
+        ]
+      },
+      {
+        "table_name": "conductor",
+        "columns": [
+          [
+            "Conductor_ID",
+            "number"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Age",
+            "number"
+          ],
+          [
+            "Nationality",
+            "text"
+          ],
+          [
+            "Year_of_Work",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "Conductor_ID"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "performance",
+        "columns": [
+          [
+            "Performance_ID",
+            "number"
+          ],
+          [
+            "Orchestra_ID",
+            "number"
+          ],
+          [
+            "Type",
+            "text"
+          ],
+          [
+            "Date",
+            "text"
+          ],
+          [
+            "Official_ratings_(millions)",
+            "number"
+          ],
+          [
+            "Weekly_rank",
+            "text"
+          ],
+          [
+            "Share",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Performance_ID"
+        ],
+        "foreign_keys": [
+          [
+            "performance.Orchestra_ID",
+            "orchestra.Orchestra_ID"
+          ]
+        ]
+      },
+      {
+        "table_name": "show",
+        "columns": [
+          [
+            "Show_ID",
+            "number"
+          ],
+          [
+            "Performance_ID",
+            "number"
+          ],
+          [
+            "If_first_show",
+            "others"
+          ],
+          [
+            "Result",
+            "text"
+          ],
+          [
+            "Attendance",
+            "number"
+          ]
+        ],
+        "primary_keys": [],
+        "foreign_keys": [
+          [
+            "show.Performance_ID",
+            "performance.Performance_ID"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "orchestra.Conductor_ID",
+        "conductor.Conductor_ID"
+      ],
+      [
+        "performance.Orchestra_ID",
+        "orchestra.Orchestra_ID"
+      ],
+      [
+        "show.Performance_ID",
+        "performance.Performance_ID"
+      ]
+    ]
+  },
+  {
+    "db_id": "pets_1",
+    "question_id": 2,
+    "question": "What is the first name and gender of the all the students who have more than one pet?",
+    "candidate_tables": [
+      {
+        "table_name": "Student",
+        "columns": [
+          [
+            "StuID",
+            "number"
+          ],
+          [
+            "LName",
+            "text"
+          ],
+          [
+            "Fname",
+            "text"
+          ],
+          [
+            "Age",
+            "number"
+          ],
+          [
+            "Sex",
+            "text"
+          ],
+          [
+            "Major",
+            "number"
+          ],
+          [
+            "Advisor",
+            "number"
+          ],
+          [
+            "city_code",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "StuID"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "Has_Pet",
+        "columns": [
+          [
+            "StuID",
+            "number"
+          ],
+          [
+            "PetID",
+            "number"
+          ]
+        ],
+        "primary_keys": [],
+        "foreign_keys": [
+          [
+            "Has_Pet.StuID",
+            "Student.StuID"
+          ],
+          [
+            "Has_Pet.PetID",
+            "Pets.PetID"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "Has_Pet.StuID",
+        "Student.StuID"
+      ],
+      [
+        "Has_Pet.PetID",
+        "Pets.PetID"
+      ]
+    ]
+  },
+  {
+    "db_id": "student_transcripts_tracking",
+    "question_id": 3,
+    "question": "For each semester, what is the name and id of the one with the most students registered?",
+    "candidate_tables": [
+      {
+        "table_name": "Students",
+        "columns": [
+          [
+            "student_id",
+            "number"
+          ],
+          [
+            "current_address_id",
+            "number"
+          ],
+          [
+            "permanent_address_id",
+            "number"
+          ],
+          [
+            "first_name",
+            "text"
+          ],
+          [
+            "middle_name",
+            "text"
+          ],
+          [
+            "last_name",
+            "text"
+          ],
+          [
+            "cell_mobile_number",
+            "text"
+          ],
+          [
+            "email_address",
+            "text"
+          ],
+          [
+            "ssn",
+            "text"
+          ],
+          [
+            "date_first_registered",
+            "time"
+          ],
+          [
+            "date_left",
+            "time"
+          ],
+          [
+            "other_student_details",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "student_id"
+        ],
+        "foreign_keys": [
+          [
+            "Students.permanent_address_id",
+            "Addresses.address_id"
+          ],
+          [
+            "Students.current_address_id",
+            "Addresses.address_id"
+          ]
+        ]
+      },
+      {
+        "table_name": "Student_Enrolment",
+        "columns": [
+          [
+            "student_enrolment_id",
+            "number"
+          ],
+          [
+            "degree_program_id",
+            "number"
+          ],
+          [
+            "semester_id",
+            "number"
+          ],
+          [
+            "student_id",
+            "number"
+          ],
+          [
+            "other_details",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "student_enrolment_id"
+        ],
+        "foreign_keys": [
+          [
+            "Student_Enrolment.student_id",
+            "Students.student_id"
+          ],
+          [
+            "Student_Enrolment.semester_id",
+            "Semesters.semester_id"
+          ],
+          [
+            "Student_Enrolment.degree_program_id",
+            "Degree_Programs.degree_program_id"
+          ]
+        ]
+      },
+      {
+        "table_name": "Student_Enrolment_Courses",
+        "columns": [
+          [
+            "student_course_id",
+            "number"
+          ],
+          [
+            "course_id",
+            "number"
+          ],
+          [
+            "student_enrolment_id",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "student_course_id"
+        ],
+        "foreign_keys": [
+          [
+            "Student_Enrolment_Courses.student_enrolment_id",
+            "Student_Enrolment.student_enrolment_id"
+          ],
+          [
+            "Student_Enrolment_Courses.course_id",
+            "Courses.course_id"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "Students.permanent_address_id",
+        "Addresses.address_id"
+      ],
+      [
+        "Students.current_address_id",
+        "Addresses.address_id"
+      ],
+      [
+        "Student_Enrolment.student_id",
+        "Students.student_id"
+      ],
+      [
+        "Student_Enrolment.semester_id",
+        "Semesters.semester_id"
+      ],
+      [
+        "Student_Enrolment.degree_program_id",
+        "Degree_Programs.degree_program_id"
+      ],
+      [
+        "Student_Enrolment_Courses.student_enrolment_id",
+        "Student_Enrolment.student_enrolment_id"
+      ],
+      [
+        "Student_Enrolment_Courses.course_id",
+        "Courses.course_id"
+      ]
+    ]
+  },
+  {
+    "db_id": "dog_kennels",
+    "question_id": 4,
+    "question": "What are the email, cell phone and home phone of each professional?",
+    "candidate_tables": [
+      {
+        "table_name": "Professionals",
+        "columns": [
+          [
+            "professional_id",
+            "number"
+          ],
+          [
+            "role_code",
+            "text"
+          ],
+          [
+            "first_name",
+            "text"
+          ],
+          [
+            "street",
+            "text"
+          ],
+          [
+            "city",
+            "text"
+          ],
+          [
+            "state",
+            "text"
+          ],
+          [
+            "zip_code",
+            "text"
+          ],
+          [
+            "last_name",
+            "text"
+          ],
+          [
+            "email_address",
+            "text"
+          ],
+          [
+            "home_phone",
+            "text"
+          ],
+          [
+            "cell_number",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "professional_id"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "Owners",
+        "columns": [
+          [
+            "owner_id",
+            "number"
+          ],
+          [
+            "first_name",
+            "text"
+          ],
+          [
+            "last_name",
+            "text"
+          ],
+          [
+            "street",
+            "text"
+          ],
+          [
+            "city",
+            "text"
+          ],
+          [
+            "state",
+            "text"
+          ],
+          [
+            "zip_code",
+            "text"
+          ],
+          [
+            "email_address",
+            "text"
+          ],
+          [
+            "home_phone",
+            "text"
+          ],
+          [
+            "cell_number",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "owner_id"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": []
+  },
+  {
+    "db_id": "orchestra",
+    "question_id": 5,
+    "question": "Return the record companies of orchestras, sorted descending by the years in which they were founded.",
+    "candidate_tables": [
+      {
+        "table_name": "orchestra",
+        "columns": [
+          [
+            "Orchestra_ID",
+            "number"
+          ],
+          [
+            "Orchestra",
+            "text"
+          ],
+          [
+            "Conductor_ID",
+            "number"
+          ],
+          [
+            "Record_Company",
+            "text"
+          ],
+          [
+            "Year_of_Founded",
+            "number"
+          ],
+          [
+            "Major_Record_Format",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Orchestra_ID"
+        ],
+        "foreign_keys": [
+          [
+            "orchestra.Conductor_ID",
+            "conductor.Conductor_ID"
+          ]
+        ]
+      },
+      {
+        "table_name": "performance",
+        "columns": [
+          [
+            "Performance_ID",
+            "number"
+          ],
+          [
+            "Orchestra_ID",
+            "number"
+          ],
+          [
+            "Type",
+            "text"
+          ],
+          [
+            "Date",
+            "text"
+          ],
+          [
+            "Official_ratings_(millions)",
+            "number"
+          ],
+          [
+            "Weekly_rank",
+            "text"
+          ],
+          [
+            "Share",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Performance_ID"
+        ],
+        "foreign_keys": [
+          [
+            "performance.Orchestra_ID",
+            "orchestra.Orchestra_ID"
+          ]
+        ]
+      },
+      {
+        "table_name": "conductor",
+        "columns": [
+          [
+            "Conductor_ID",
+            "number"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Age",
+            "number"
+          ],
+          [
+            "Nationality",
+            "text"
+          ],
+          [
+            "Year_of_Work",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "Conductor_ID"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "show",
+        "columns": [
+          [
+            "Show_ID",
+            "number"
+          ],
+          [
+            "Performance_ID",
+            "number"
+          ],
+          [
+            "If_first_show",
+            "others"
+          ],
+          [
+            "Result",
+            "text"
+          ],
+          [
+            "Attendance",
+            "number"
+          ]
+        ],
+        "primary_keys": [],
+        "foreign_keys": [
+          [
+            "show.Performance_ID",
+            "performance.Performance_ID"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "orchestra.Conductor_ID",
+        "conductor.Conductor_ID"
+      ],
+      [
+        "performance.Orchestra_ID",
+        "orchestra.Orchestra_ID"
+      ],
+      [
+        "show.Performance_ID",
+        "performance.Performance_ID"
+      ]
+    ]
+  },
+  {
+    "db_id": "tvshow",
+    "question_id": 6,
+    "question": "What is Weekly Rank of TV series with Episode \"A Love of a Lifetime\"?",
+    "candidate_tables": [
+      {
+        "table_name": "TV_series",
+        "columns": [
+          [
+            "id",
+            "number"
+          ],
+          [
+            "Episode",
+            "text"
+          ],
+          [
+            "Air_Date",
+            "text"
+          ],
+          [
+            "Rating",
+            "text"
+          ],
+          [
+            "Share",
+            "number"
+          ],
+          [
+            "18_49_Rating_Share",
+            "text"
+          ],
+          [
+            "Viewers_m",
+            "text"
+          ],
+          [
+            "Weekly_Rank",
+            "number"
+          ],
+          [
+            "Channel",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "foreign_keys": [
+          [
+            "TV_series.Channel",
+            "TV_Channel.id"
+          ]
+        ]
+      },
+      {
+        "table_name": "TV_Channel",
+        "columns": [
+          [
+            "id",
+            "text"
+          ],
+          [
+            "series_name",
+            "text"
+          ],
+          [
+            "Country",
+            "text"
+          ],
+          [
+            "Language",
+            "text"
+          ],
+          [
+            "Content",
+            "text"
+          ],
+          [
+            "Pixel_aspect_ratio_PAR",
+            "text"
+          ],
+          [
+            "Hight_definition_TV",
+            "text"
+          ],
+          [
+            "Pay_per_view_PPV",
+            "text"
+          ],
+          [
+            "Package_Option",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "Cartoon",
+        "columns": [
+          [
+            "id",
+            "number"
+          ],
+          [
+            "Title",
+            "text"
+          ],
+          [
+            "Directed_by",
+            "text"
+          ],
+          [
+            "Written_by",
+            "text"
+          ],
+          [
+            "Original_air_date",
+            "text"
+          ],
+          [
+            "Production_code",
+            "number"
+          ],
+          [
+            "Channel",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "foreign_keys": [
+          [
+            "Cartoon.Channel",
+            "TV_Channel.id"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "TV_series.Channel",
+        "TV_Channel.id"
+      ],
+      [
+        "Cartoon.Channel",
+        "TV_Channel.id"
+      ]
+    ]
+  },
+  {
+    "db_id": "dog_kennels",
+    "question_id": 7,
+    "question": "How much does the most recent treatment cost?",
+    "candidate_tables": [
+      {
+        "table_name": "Treatment_Types",
+        "columns": [
+          [
+            "treatment_type_code",
+            "text"
+          ],
+          [
+            "treatment_type_description",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "treatment_type_code"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "Treatments",
+        "columns": [
+          [
+            "treatment_id",
+            "number"
+          ],
+          [
+            "dog_id",
+            "number"
+          ],
+          [
+            "professional_id",
+            "number"
+          ],
+          [
+            "treatment_type_code",
+            "text"
+          ],
+          [
+            "date_of_treatment",
+            "time"
+          ],
+          [
+            "cost_of_treatment",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "treatment_id"
+        ],
+        "foreign_keys": [
+          [
+            "Treatments.dog_id",
+            "Dogs.dog_id"
+          ],
+          [
+            "Treatments.professional_id",
+            "Professionals.professional_id"
+          ],
+          [
+            "Treatments.treatment_type_code",
+            "Treatment_Types.treatment_type_code"
+          ]
+        ]
+      },
+      {
+        "table_name": "Charges",
+        "columns": [
+          [
+            "charge_id",
+            "number"
+          ],
+          [
+            "charge_type",
+            "text"
+          ],
+          [
+            "charge_amount",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "charge_id"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": [
+      [
+        "Treatments.dog_id",
+        "Dogs.dog_id"
+      ],
+      [
+        "Treatments.professional_id",
+        "Professionals.professional_id"
+      ],
+      [
+        "Treatments.treatment_type_code",
+        "Treatment_Types.treatment_type_code"
+      ]
+    ]
+  },
+  {
+    "db_id": "world_1",
+    "question_id": 8,
+    "question": "What is the number of distinct languages used around the world?",
+    "candidate_tables": [
+      {
+        "table_name": "countrylanguage",
+        "columns": [
+          [
+            "CountryCode",
+            "text"
+          ],
+          [
+            "Language",
+            "text"
+          ],
+          [
+            "IsOfficial",
+            "text"
+          ],
+          [
+            "Percentage",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "CountryCode"
+        ],
+        "foreign_keys": [
+          [
+            "countrylanguage.CountryCode",
+            "country.Code"
+          ]
+        ]
+      },
+      {
+        "table_name": "country",
+        "columns": [
+          [
+            "Code",
+            "text"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Continent",
+            "text"
+          ],
+          [
+            "Region",
+            "text"
+          ],
+          [
+            "SurfaceArea",
+            "number"
+          ],
+          [
+            "IndepYear",
+            "number"
+          ],
+          [
+            "Population",
+            "number"
+          ],
+          [
+            "LifeExpectancy",
+            "number"
+          ],
+          [
+            "GNP",
+            "number"
+          ],
+          [
+            "GNPOld",
+            "number"
+          ],
+          [
+            "LocalName",
+            "text"
+          ],
+          [
+            "GovernmentForm",
+            "text"
+          ],
+          [
+            "HeadOfState",
+            "text"
+          ],
+          [
+            "Capital",
+            "number"
+          ],
+          [
+            "Code2",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Code"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "city",
+        "columns": [
+          [
+            "ID",
+            "number"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "CountryCode",
+            "text"
+          ],
+          [
+            "District",
+            "text"
+          ],
+          [
+            "Population",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "ID"
+        ],
+        "foreign_keys": [
+          [
+            "city.CountryCode",
+            "country.Code"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "countrylanguage.CountryCode",
+        "country.Code"
+      ],
+      [
+        "city.CountryCode",
+        "country.Code"
+      ]
+    ]
+  },
+  {
+    "db_id": "wta_1",
+    "question_id": 9,
+    "question": "List the names of all winners who played in both 2013 and 2016.",
+    "candidate_tables": [
+      {
+        "table_name": "matches",
+        "columns": [
+          [
+            "best_of",
+            "number"
+          ],
+          [
+            "draw_size",
+            "number"
+          ],
+          [
+            "loser_age",
+            "number"
+          ],
+          [
+            "loser_entry",
+            "text"
+          ],
+          [
+            "loser_hand",
+            "text"
+          ],
+          [
+            "loser_ht",
+            "number"
+          ],
+          [
+            "loser_id",
+            "number"
+          ],
+          [
+            "loser_ioc",
+            "text"
+          ],
+          [
+            "loser_name",
+            "text"
+          ],
+          [
+            "loser_rank",
+            "number"
+          ],
+          [
+            "loser_rank_points",
+            "number"
+          ],
+          [
+            "loser_seed",
+            "number"
+          ],
+          [
+            "match_num",
+            "number"
+          ],
+          [
+            "minutes",
+            "number"
+          ],
+          [
+            "round",
+            "text"
+          ],
+          [
+            "score",
+            "text"
+          ],
+          [
+            "surface",
+            "text"
+          ],
+          [
+            "tourney_date",
+            "time"
+          ],
+          [
+            "tourney_id",
+            "text"
+          ],
+          [
+            "tourney_level",
+            "text"
+          ],
+          [
+            "tourney_name",
+            "text"
+          ],
+          [
+            "winner_age",
+            "number"
+          ],
+          [
+            "winner_entry",
+            "text"
+          ],
+          [
+            "winner_hand",
+            "text"
+          ],
+          [
+            "winner_ht",
+            "number"
+          ],
+          [
+            "winner_id",
+            "number"
+          ],
+          [
+            "winner_ioc",
+            "text"
+          ],
+          [
+            "winner_name",
+            "text"
+          ],
+          [
+            "winner_rank",
+            "number"
+          ],
+          [
+            "winner_rank_points",
+            "number"
+          ],
+          [
+            "winner_seed",
+            "number"
+          ],
+          [
+            "year",
+            "number"
+          ]
+        ],
+        "primary_keys": [],
+        "foreign_keys": [
+          [
+            "matches.winner_id",
+            "players.player_id"
+          ],
+          [
+            "matches.loser_id",
+            "players.player_id"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "matches.winner_id",
+        "players.player_id"
+      ],
+      [
+        "matches.loser_id",
+        "players.player_id"
+      ]
+    ]
+  },
+  {
+    "db_id": "real_estate_properties",
+    "question_id": 10,
+    "question": "What are the names of properties that are either houses or apartments with more than 1 room?",
+    "candidate_tables": [
+      {
+        "table_name": "Properties",
+        "columns": [
+          [
+            "property_id",
+            "number"
+          ],
+          [
+            "property_type_code",
+            "text"
+          ],
+          [
+            "date_on_market",
+            "time"
+          ],
+          [
+            "date_sold",
+            "time"
+          ],
+          [
+            "property_name",
+            "text"
+          ],
+          [
+            "property_address",
+            "text"
+          ],
+          [
+            "room_count",
+            "number"
+          ],
+          [
+            "vendor_requested_price",
+            "number"
+          ],
+          [
+            "buyer_offered_price",
+            "number"
+          ],
+          [
+            "agreed_selling_price",
+            "number"
+          ],
+          [
+            "apt_feature_1",
+            "text"
+          ],
+          [
+            "apt_feature_2",
+            "text"
+          ],
+          [
+            "apt_feature_3",
+            "text"
+          ],
+          [
+            "fld_feature_1",
+            "text"
+          ],
+          [
+            "fld_feature_2",
+            "text"
+          ],
+          [
+            "fld_feature_3",
+            "text"
+          ],
+          [
+            "hse_feature_1",
+            "text"
+          ],
+          [
+            "hse_feature_2",
+            "text"
+          ],
+          [
+            "hse_feature_3",
+            "text"
+          ],
+          [
+            "oth_feature_1",
+            "text"
+          ],
+          [
+            "oth_feature_2",
+            "text"
+          ],
+          [
+            "oth_feature_3",
+            "text"
+          ],
+          [
+            "shp_feature_1",
+            "text"
+          ],
+          [
+            "shp_feature_2",
+            "text"
+          ],
+          [
+            "shp_feature_3",
+            "text"
+          ],
+          [
+            "other_property_details",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "property_id"
+        ],
+        "foreign_keys": [
+          [
+            "Properties.property_type_code",
+            "Ref_Property_Types.property_type_code"
+          ]
+        ]
+      },
+      {
+        "table_name": "Other_Available_Features",
+        "columns": [
+          [
+            "feature_id",
+            "number"
+          ],
+          [
+            "feature_type_code",
+            "text"
+          ],
+          [
+            "feature_name",
+            "text"
+          ],
+          [
+            "feature_description",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "feature_id"
+        ],
+        "foreign_keys": [
+          [
+            "Other_Available_Features.feature_type_code",
+            "Ref_Feature_Types.feature_type_code"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "Properties.property_type_code",
+        "Ref_Property_Types.property_type_code"
+      ],
+      [
+        "Other_Available_Features.feature_type_code",
+        "Ref_Feature_Types.feature_type_code"
+      ]
+    ]
+  },
+  {
+    "db_id": "employee_hire_evaluation",
+    "question_id": 11,
+    "question": "Find the name of the shops that do not hire any employee.",
+    "candidate_tables": [
+      {
+        "table_name": "shop",
+        "columns": [
+          [
+            "Shop_ID",
+            "number"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Location",
+            "text"
+          ],
+          [
+            "District",
+            "text"
+          ],
+          [
+            "Number_products",
+            "number"
+          ],
+          [
+            "Manager_name",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Shop_ID"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "hiring",
+        "columns": [
+          [
+            "Shop_ID",
+            "number"
+          ],
+          [
+            "Employee_ID",
+            "number"
+          ],
+          [
+            "Start_from",
+            "text"
+          ],
+          [
+            "Is_full_time",
+            "others"
+          ]
+        ],
+        "primary_keys": [
+          "Employee_ID"
+        ],
+        "foreign_keys": [
+          [
+            "hiring.Employee_ID",
+            "employee.Employee_ID"
+          ],
+          [
+            "hiring.Shop_ID",
+            "shop.Shop_ID"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "hiring.Employee_ID",
+        "employee.Employee_ID"
+      ],
+      [
+        "hiring.Shop_ID",
+        "shop.Shop_ID"
+      ]
+    ]
+  },
+  {
+    "db_id": "student_transcripts_tracking",
+    "question_id": 12,
+    "question": "How many different addresses do the students currently live?",
+    "candidate_tables": [
+      {
+        "table_name": "Students",
+        "columns": [
+          [
+            "student_id",
+            "number"
+          ],
+          [
+            "current_address_id",
+            "number"
+          ],
+          [
+            "permanent_address_id",
+            "number"
+          ],
+          [
+            "first_name",
+            "text"
+          ],
+          [
+            "middle_name",
+            "text"
+          ],
+          [
+            "last_name",
+            "text"
+          ],
+          [
+            "cell_mobile_number",
+            "text"
+          ],
+          [
+            "email_address",
+            "text"
+          ],
+          [
+            "ssn",
+            "text"
+          ],
+          [
+            "date_first_registered",
+            "time"
+          ],
+          [
+            "date_left",
+            "time"
+          ],
+          [
+            "other_student_details",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "student_id"
+        ],
+        "foreign_keys": [
+          [
+            "Students.permanent_address_id",
+            "Addresses.address_id"
+          ],
+          [
+            "Students.current_address_id",
+            "Addresses.address_id"
+          ]
+        ]
+      },
+      {
+        "table_name": "Addresses",
+        "columns": [
+          [
+            "address_id",
+            "number"
+          ],
+          [
+            "line_1",
+            "text"
+          ],
+          [
+            "line_2",
+            "text"
+          ],
+          [
+            "line_3",
+            "text"
+          ],
+          [
+            "city",
+            "text"
+          ],
+          [
+            "zip_postcode",
+            "text"
+          ],
+          [
+            "state_province_county",
+            "text"
+          ],
+          [
+            "country",
+            "text"
+          ],
+          [
+            "other_address_details",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "address_id"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": [
+      [
+        "Students.permanent_address_id",
+        "Addresses.address_id"
+      ],
+      [
+        "Students.current_address_id",
+        "Addresses.address_id"
+      ]
+    ]
+  },
+  {
+    "db_id": "employee_hire_evaluation",
+    "question_id": 13,
+    "question": "Which shops run with no employees? Find the shop names",
+    "candidate_tables": [
+      {
+        "table_name": "shop",
+        "columns": [
+          [
+            "Shop_ID",
+            "number"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Location",
+            "text"
+          ],
+          [
+            "District",
+            "text"
+          ],
+          [
+            "Number_products",
+            "number"
+          ],
+          [
+            "Manager_name",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Shop_ID"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "hiring",
+        "columns": [
+          [
+            "Shop_ID",
+            "number"
+          ],
+          [
+            "Employee_ID",
+            "number"
+          ],
+          [
+            "Start_from",
+            "text"
+          ],
+          [
+            "Is_full_time",
+            "others"
+          ]
+        ],
+        "primary_keys": [
+          "Employee_ID"
+        ],
+        "foreign_keys": [
+          [
+            "hiring.Employee_ID",
+            "employee.Employee_ID"
+          ],
+          [
+            "hiring.Shop_ID",
+            "shop.Shop_ID"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "hiring.Employee_ID",
+        "employee.Employee_ID"
+      ],
+      [
+        "hiring.Shop_ID",
+        "shop.Shop_ID"
+      ]
+    ]
+  },
+  {
+    "db_id": "flight_2",
+    "question_id": 14,
+    "question": "Give the airline with abbreviation 'UAL'.",
+    "candidate_tables": [
+      {
+        "table_name": "airlines",
+        "columns": [
+          [
+            "uid",
+            "number"
+          ],
+          [
+            "Airline",
+            "text"
+          ],
+          [
+            "Abbreviation",
+            "text"
+          ],
+          [
+            "Country",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "uid"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "flights",
+        "columns": [
+          [
+            "Airline",
+            "number"
+          ],
+          [
+            "FlightNo",
+            "number"
+          ],
+          [
+            "SourceAirport",
+            "text"
+          ],
+          [
+            "DestAirport",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Airline"
+        ],
+        "foreign_keys": [
+          [
+            "flights.DestAirport",
+            "airports.AirportCode"
+          ],
+          [
+            "flights.SourceAirport",
+            "airports.AirportCode"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "flights.DestAirport",
+        "airports.AirportCode"
+      ],
+      [
+        "flights.SourceAirport",
+        "airports.AirportCode"
+      ]
+    ]
+  },
+  {
+    "db_id": "student_transcripts_tracking",
+    "question_id": 15,
+    "question": "What is the zip code of the address in the city Port Chelsea?",
+    "candidate_tables": [
+      {
+        "table_name": "Addresses",
+        "columns": [
+          [
+            "address_id",
+            "number"
+          ],
+          [
+            "line_1",
+            "text"
+          ],
+          [
+            "line_2",
+            "text"
+          ],
+          [
+            "line_3",
+            "text"
+          ],
+          [
+            "city",
+            "text"
+          ],
+          [
+            "zip_postcode",
+            "text"
+          ],
+          [
+            "state_province_county",
+            "text"
+          ],
+          [
+            "country",
+            "text"
+          ],
+          [
+            "other_address_details",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "address_id"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": []
+  },
+  {
+    "db_id": "cre_Doc_Template_Mgt",
+    "question_id": 16,
+    "question": "What are the ids, names, and descriptions for all documents?",
+    "candidate_tables": [
+      {
+        "table_name": "Documents",
+        "columns": [
+          [
+            "Document_ID",
+            "number"
+          ],
+          [
+            "Template_ID",
+            "number"
+          ],
+          [
+            "Document_Name",
+            "text"
+          ],
+          [
+            "Document_Description",
+            "text"
+          ],
+          [
+            "Other_Details",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Document_ID"
+        ],
+        "foreign_keys": [
+          [
+            "Documents.Template_ID",
+            "Templates.Template_ID"
+          ]
+        ]
+      },
+      {
+        "table_name": "Paragraphs",
+        "columns": [
+          [
+            "Paragraph_ID",
+            "number"
+          ],
+          [
+            "Document_ID",
+            "number"
+          ],
+          [
+            "Paragraph_Text",
+            "text"
+          ],
+          [
+            "Other_Details",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Paragraph_ID"
+        ],
+        "foreign_keys": [
+          [
+            "Paragraphs.Document_ID",
+            "Documents.Document_ID"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "Documents.Template_ID",
+        "Templates.Template_ID"
+      ],
+      [
+        "Paragraphs.Document_ID",
+        "Documents.Document_ID"
+      ]
+    ]
+  },
+  {
+    "db_id": "tvshow",
+    "question_id": 17,
+    "question": "which countries' tv channels are not playing any cartoon written by Todd Casey?",
+    "candidate_tables": [
+      {
+        "table_name": "Cartoon",
+        "columns": [
+          [
+            "id",
+            "number"
+          ],
+          [
+            "Title",
+            "text"
+          ],
+          [
+            "Directed_by",
+            "text"
+          ],
+          [
+            "Written_by",
+            "text"
+          ],
+          [
+            "Original_air_date",
+            "text"
+          ],
+          [
+            "Production_code",
+            "number"
+          ],
+          [
+            "Channel",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "foreign_keys": [
+          [
+            "Cartoon.Channel",
+            "TV_Channel.id"
+          ]
+        ]
+      },
+      {
+        "table_name": "TV_Channel",
+        "columns": [
+          [
+            "id",
+            "text"
+          ],
+          [
+            "series_name",
+            "text"
+          ],
+          [
+            "Country",
+            "text"
+          ],
+          [
+            "Language",
+            "text"
+          ],
+          [
+            "Content",
+            "text"
+          ],
+          [
+            "Pixel_aspect_ratio_PAR",
+            "text"
+          ],
+          [
+            "Hight_definition_TV",
+            "text"
+          ],
+          [
+            "Pay_per_view_PPV",
+            "text"
+          ],
+          [
+            "Package_Option",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "TV_series",
+        "columns": [
+          [
+            "id",
+            "number"
+          ],
+          [
+            "Episode",
+            "text"
+          ],
+          [
+            "Air_Date",
+            "text"
+          ],
+          [
+            "Rating",
+            "text"
+          ],
+          [
+            "Share",
+            "number"
+          ],
+          [
+            "18_49_Rating_Share",
+            "text"
+          ],
+          [
+            "Viewers_m",
+            "text"
+          ],
+          [
+            "Weekly_Rank",
+            "number"
+          ],
+          [
+            "Channel",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "foreign_keys": [
+          [
+            "TV_series.Channel",
+            "TV_Channel.id"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "Cartoon.Channel",
+        "TV_Channel.id"
+      ],
+      [
+        "TV_series.Channel",
+        "TV_Channel.id"
+      ]
+    ]
+  },
+  {
+    "db_id": "flight_2",
+    "question_id": 18,
+    "question": "What are the names of airports in Aberdeen?",
+    "candidate_tables": [
+      {
+        "table_name": "airports",
+        "columns": [
+          [
+            "City",
+            "text"
+          ],
+          [
+            "AirportCode",
+            "text"
+          ],
+          [
+            "AirportName",
+            "text"
+          ],
+          [
+            "Country",
+            "text"
+          ],
+          [
+            "CountryAbbrev",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "AirportCode"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "flights",
+        "columns": [
+          [
+            "Airline",
+            "number"
+          ],
+          [
+            "FlightNo",
+            "number"
+          ],
+          [
+            "SourceAirport",
+            "text"
+          ],
+          [
+            "DestAirport",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Airline"
+        ],
+        "foreign_keys": [
+          [
+            "flights.DestAirport",
+            "airports.AirportCode"
+          ],
+          [
+            "flights.SourceAirport",
+            "airports.AirportCode"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "flights.DestAirport",
+        "airports.AirportCode"
+      ],
+      [
+        "flights.SourceAirport",
+        "airports.AirportCode"
+      ]
+    ]
+  },
+  {
+    "db_id": "car_1",
+    "question_id": 19,
+    "question": "Which distinctive models are produced by maker with the full name General Motors or weighing more than 3500?",
+    "candidate_tables": [
+      {
+        "table_name": "model_list",
+        "columns": [
+          [
+            "ModelId",
+            "number"
+          ],
+          [
+            "Maker",
+            "number"
+          ],
+          [
+            "Model",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "ModelId"
+        ],
+        "foreign_keys": [
+          [
+            "model_list.Maker",
+            "car_makers.Id"
+          ]
+        ]
+      },
+      {
+        "table_name": "car_makers",
+        "columns": [
+          [
+            "Id",
+            "number"
+          ],
+          [
+            "Maker",
+            "text"
+          ],
+          [
+            "FullName",
+            "text"
+          ],
+          [
+            "Country",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Id"
+        ],
+        "foreign_keys": [
+          [
+            "car_makers.Country",
+            "countries.CountryId"
+          ]
+        ]
+      },
+      {
+        "table_name": "cars_data",
+        "columns": [
+          [
+            "Id",
+            "number"
+          ],
+          [
+            "MPG",
+            "text"
+          ],
+          [
+            "Cylinders",
+            "number"
+          ],
+          [
+            "Edispl",
+            "number"
+          ],
+          [
+            "Horsepower",
+            "text"
+          ],
+          [
+            "Weight",
+            "number"
+          ],
+          [
+            "Accelerate",
+            "number"
+          ],
+          [
+            "Year",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "Id"
+        ],
+        "foreign_keys": [
+          [
+            "cars_data.Id",
+            "car_names.MakeId"
+          ]
+        ]
+      },
+      {
+        "table_name": "car_names",
+        "columns": [
+          [
+            "MakeId",
+            "number"
+          ],
+          [
+            "Model",
+            "text"
+          ],
+          [
+            "Make",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "MakeId"
+        ],
+        "foreign_keys": [
+          [
+            "car_names.Model",
+            "model_list.Model"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "model_list.Maker",
+        "car_makers.Id"
+      ],
+      [
+        "car_makers.Country",
+        "countries.CountryId"
+      ],
+      [
+        "cars_data.Id",
+        "car_names.MakeId"
+      ],
+      [
+        "car_names.Model",
+        "model_list.Model"
+      ]
+    ]
+  },
+  {
+    "db_id": "poker_player",
+    "question_id": 20,
+    "question": "Give the nationality that is most common across all people.",
+    "candidate_tables": [
+      {
+        "table_name": "people",
+        "columns": [
+          [
+            "People_ID",
+            "number"
+          ],
+          [
+            "Nationality",
+            "text"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Birth_Date",
+            "text"
+          ],
+          [
+            "Height",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "People_ID"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": []
+  },
+  {
+    "db_id": "dog_kennels",
+    "question_id": 21,
+    "question": "How many dogs went through any treatments?",
+    "candidate_tables": [
+      {
+        "table_name": "Dogs",
+        "columns": [
+          [
+            "dog_id",
+            "number"
+          ],
+          [
+            "owner_id",
+            "number"
+          ],
+          [
+            "abandoned_yn",
+            "text"
+          ],
+          [
+            "breed_code",
+            "text"
+          ],
+          [
+            "size_code",
+            "text"
+          ],
+          [
+            "name",
+            "text"
+          ],
+          [
+            "age",
+            "text"
+          ],
+          [
+            "date_of_birth",
+            "time"
+          ],
+          [
+            "gender",
+            "text"
+          ],
+          [
+            "weight",
+            "text"
+          ],
+          [
+            "date_arrived",
+            "time"
+          ],
+          [
+            "date_adopted",
+            "time"
+          ],
+          [
+            "date_departed",
+            "time"
+          ]
+        ],
+        "primary_keys": [
+          "dog_id"
+        ],
+        "foreign_keys": [
+          [
+            "Dogs.owner_id",
+            "Owners.owner_id"
+          ],
+          [
+            "Dogs.owner_id",
+            "Owners.owner_id"
+          ],
+          [
+            "Dogs.size_code",
+            "Sizes.size_code"
+          ],
+          [
+            "Dogs.breed_code",
+            "Breeds.breed_code"
+          ]
+        ]
+      },
+      {
+        "table_name": "Treatments",
+        "columns": [
+          [
+            "treatment_id",
+            "number"
+          ],
+          [
+            "dog_id",
+            "number"
+          ],
+          [
+            "professional_id",
+            "number"
+          ],
+          [
+            "treatment_type_code",
+            "text"
+          ],
+          [
+            "date_of_treatment",
+            "time"
+          ],
+          [
+            "cost_of_treatment",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "treatment_id"
+        ],
+        "foreign_keys": [
+          [
+            "Treatments.dog_id",
+            "Dogs.dog_id"
+          ],
+          [
+            "Treatments.professional_id",
+            "Professionals.professional_id"
+          ],
+          [
+            "Treatments.treatment_type_code",
+            "Treatment_Types.treatment_type_code"
+          ]
+        ]
+      },
+      {
+        "table_name": "Treatment_Types",
+        "columns": [
+          [
+            "treatment_type_code",
+            "text"
+          ],
+          [
+            "treatment_type_description",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "treatment_type_code"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "Breeds",
+        "columns": [
+          [
+            "breed_code",
+            "text"
+          ],
+          [
+            "breed_name",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "breed_code"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "Owners",
+        "columns": [
+          [
+            "owner_id",
+            "number"
+          ],
+          [
+            "first_name",
+            "text"
+          ],
+          [
+            "last_name",
+            "text"
+          ],
+          [
+            "street",
+            "text"
+          ],
+          [
+            "city",
+            "text"
+          ],
+          [
+            "state",
+            "text"
+          ],
+          [
+            "zip_code",
+            "text"
+          ],
+          [
+            "email_address",
+            "text"
+          ],
+          [
+            "home_phone",
+            "text"
+          ],
+          [
+            "cell_number",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "owner_id"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": [
+      [
+        "Dogs.owner_id",
+        "Owners.owner_id"
+      ],
+      [
+        "Dogs.owner_id",
+        "Owners.owner_id"
+      ],
+      [
+        "Dogs.size_code",
+        "Sizes.size_code"
+      ],
+      [
+        "Dogs.breed_code",
+        "Breeds.breed_code"
+      ],
+      [
+        "Treatments.dog_id",
+        "Dogs.dog_id"
+      ],
+      [
+        "Treatments.professional_id",
+        "Professionals.professional_id"
+      ],
+      [
+        "Treatments.treatment_type_code",
+        "Treatment_Types.treatment_type_code"
+      ]
+    ]
+  },
+  {
+    "db_id": "flight_2",
+    "question_id": 22,
+    "question": "Count the number of flights into ATO.",
+    "candidate_tables": [
+      {
+        "table_name": "flights",
+        "columns": [
+          [
+            "Airline",
+            "number"
+          ],
+          [
+            "FlightNo",
+            "number"
+          ],
+          [
+            "SourceAirport",
+            "text"
+          ],
+          [
+            "DestAirport",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Airline"
+        ],
+        "foreign_keys": [
+          [
+            "flights.DestAirport",
+            "airports.AirportCode"
+          ],
+          [
+            "flights.SourceAirport",
+            "airports.AirportCode"
+          ]
+        ]
+      },
+      {
+        "table_name": "airlines",
+        "columns": [
+          [
+            "uid",
+            "number"
+          ],
+          [
+            "Airline",
+            "text"
+          ],
+          [
+            "Abbreviation",
+            "text"
+          ],
+          [
+            "Country",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "uid"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": [
+      [
+        "flights.DestAirport",
+        "airports.AirportCode"
+      ],
+      [
+        "flights.SourceAirport",
+        "airports.AirportCode"
+      ]
+    ]
+  },
+  {
+    "db_id": "world_1",
+    "question_id": 23,
+    "question": "What is the average life expectancy in African countries that are republics?",
+    "candidate_tables": [
+      {
+        "table_name": "country",
+        "columns": [
+          [
+            "Code",
+            "text"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Continent",
+            "text"
+          ],
+          [
+            "Region",
+            "text"
+          ],
+          [
+            "SurfaceArea",
+            "number"
+          ],
+          [
+            "IndepYear",
+            "number"
+          ],
+          [
+            "Population",
+            "number"
+          ],
+          [
+            "LifeExpectancy",
+            "number"
+          ],
+          [
+            "GNP",
+            "number"
+          ],
+          [
+            "GNPOld",
+            "number"
+          ],
+          [
+            "LocalName",
+            "text"
+          ],
+          [
+            "GovernmentForm",
+            "text"
+          ],
+          [
+            "HeadOfState",
+            "text"
+          ],
+          [
+            "Capital",
+            "number"
+          ],
+          [
+            "Code2",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Code"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "countrylanguage",
+        "columns": [
+          [
+            "CountryCode",
+            "text"
+          ],
+          [
+            "Language",
+            "text"
+          ],
+          [
+            "IsOfficial",
+            "text"
+          ],
+          [
+            "Percentage",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "CountryCode"
+        ],
+        "foreign_keys": [
+          [
+            "countrylanguage.CountryCode",
+            "country.Code"
+          ]
+        ]
+      },
+      {
+        "table_name": "city",
+        "columns": [
+          [
+            "ID",
+            "number"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "CountryCode",
+            "text"
+          ],
+          [
+            "District",
+            "text"
+          ],
+          [
+            "Population",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "ID"
+        ],
+        "foreign_keys": [
+          [
+            "city.CountryCode",
+            "country.Code"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "countrylanguage.CountryCode",
+        "country.Code"
+      ],
+      [
+        "city.CountryCode",
+        "country.Code"
+      ]
+    ]
+  },
+  {
+    "db_id": "network_1",
+    "question_id": 24,
+    "question": "What are the names of high schoolers who have 3 or more friends?",
+    "candidate_tables": [
+      {
+        "table_name": "Friend",
+        "columns": [
+          [
+            "student_id",
+            "number"
+          ],
+          [
+            "friend_id",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "student_id"
+        ],
+        "foreign_keys": [
+          [
+            "Friend.friend_id",
+            "Highschooler.ID"
+          ],
+          [
+            "Friend.student_id",
+            "Highschooler.ID"
+          ]
+        ]
+      },
+      {
+        "table_name": "Highschooler",
+        "columns": [
+          [
+            "ID",
+            "number"
+          ],
+          [
+            "name",
+            "text"
+          ],
+          [
+            "grade",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "ID"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "Likes",
+        "columns": [
+          [
+            "student_id",
+            "number"
+          ],
+          [
+            "liked_id",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "student_id"
+        ],
+        "foreign_keys": [
+          [
+            "Likes.student_id",
+            "Highschooler.ID"
+          ],
+          [
+            "Likes.liked_id",
+            "Highschooler.ID"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "Friend.friend_id",
+        "Highschooler.ID"
+      ],
+      [
+        "Friend.student_id",
+        "Highschooler.ID"
+      ],
+      [
+        "Likes.student_id",
+        "Highschooler.ID"
+      ],
+      [
+        "Likes.liked_id",
+        "Highschooler.ID"
+      ]
+    ]
+  },
+  {
+    "db_id": "poker_player",
+    "question_id": 25,
+    "question": "How many poker players are there?",
+    "candidate_tables": [
+      {
+        "table_name": "poker_player",
+        "columns": [
+          [
+            "Poker_Player_ID",
+            "number"
+          ],
+          [
+            "People_ID",
+            "number"
+          ],
+          [
+            "Final_Table_Made",
+            "number"
+          ],
+          [
+            "Best_Finish",
+            "number"
+          ],
+          [
+            "Money_Rank",
+            "number"
+          ],
+          [
+            "Earnings",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "Poker_Player_ID"
+        ],
+        "foreign_keys": [
+          [
+            "poker_player.People_ID",
+            "people.People_ID"
+          ]
+        ]
+      },
+      {
+        "table_name": "people",
+        "columns": [
+          [
+            "People_ID",
+            "number"
+          ],
+          [
+            "Nationality",
+            "text"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Birth_Date",
+            "text"
+          ],
+          [
+            "Height",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "People_ID"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": [
+      [
+        "poker_player.People_ID",
+        "people.People_ID"
+      ]
+    ]
+  },
+  {
+    "db_id": "museum_visit",
+    "question_id": 26,
+    "question": "find the names of museums which have more staff than the minimum staff number of all museums opened after 2010.",
+    "candidate_tables": [
+      {
+        "table_name": "museum",
+        "columns": [
+          [
+            "Museum_ID",
+            "number"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Num_of_Staff",
+            "number"
+          ],
+          [
+            "Open_Year",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Museum_ID"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": []
+  },
+  {
+    "db_id": "network_1",
+    "question_id": 27,
+    "question": "What is the name of the high schooler who has the greatest number of likes?",
+    "candidate_tables": [
+      {
+        "table_name": "Likes",
+        "columns": [
+          [
+            "student_id",
+            "number"
+          ],
+          [
+            "liked_id",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "student_id"
+        ],
+        "foreign_keys": [
+          [
+            "Likes.student_id",
+            "Highschooler.ID"
+          ],
+          [
+            "Likes.liked_id",
+            "Highschooler.ID"
+          ]
+        ]
+      },
+      {
+        "table_name": "Highschooler",
+        "columns": [
+          [
+            "ID",
+            "number"
+          ],
+          [
+            "name",
+            "text"
+          ],
+          [
+            "grade",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "ID"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "Friend",
+        "columns": [
+          [
+            "student_id",
+            "number"
+          ],
+          [
+            "friend_id",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "student_id"
+        ],
+        "foreign_keys": [
+          [
+            "Friend.friend_id",
+            "Highschooler.ID"
+          ],
+          [
+            "Friend.student_id",
+            "Highschooler.ID"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "Likes.student_id",
+        "Highschooler.ID"
+      ],
+      [
+        "Likes.liked_id",
+        "Highschooler.ID"
+      ],
+      [
+        "Friend.friend_id",
+        "Highschooler.ID"
+      ],
+      [
+        "Friend.student_id",
+        "Highschooler.ID"
+      ]
+    ]
+  },
+  {
+    "db_id": "student_transcripts_tracking",
+    "question_id": 28,
+    "question": "Who are enrolled in 2 degree programs in one semester? List the first name, middle name and last name and the id.",
+    "candidate_tables": [
+      {
+        "table_name": "Degree_Programs",
+        "columns": [
+          [
+            "degree_program_id",
+            "number"
+          ],
+          [
+            "department_id",
+            "number"
+          ],
+          [
+            "degree_summary_name",
+            "text"
+          ],
+          [
+            "degree_summary_description",
+            "text"
+          ],
+          [
+            "other_details",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "degree_program_id"
+        ],
+        "foreign_keys": [
+          [
+            "Degree_Programs.department_id",
+            "Departments.department_id"
+          ]
+        ]
+      },
+      {
+        "table_name": "Students",
+        "columns": [
+          [
+            "student_id",
+            "number"
+          ],
+          [
+            "current_address_id",
+            "number"
+          ],
+          [
+            "permanent_address_id",
+            "number"
+          ],
+          [
+            "first_name",
+            "text"
+          ],
+          [
+            "middle_name",
+            "text"
+          ],
+          [
+            "last_name",
+            "text"
+          ],
+          [
+            "cell_mobile_number",
+            "text"
+          ],
+          [
+            "email_address",
+            "text"
+          ],
+          [
+            "ssn",
+            "text"
+          ],
+          [
+            "date_first_registered",
+            "time"
+          ],
+          [
+            "date_left",
+            "time"
+          ],
+          [
+            "other_student_details",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "student_id"
+        ],
+        "foreign_keys": [
+          [
+            "Students.permanent_address_id",
+            "Addresses.address_id"
+          ],
+          [
+            "Students.current_address_id",
+            "Addresses.address_id"
+          ]
+        ]
+      },
+      {
+        "table_name": "Semesters",
+        "columns": [
+          [
+            "semester_id",
+            "number"
+          ],
+          [
+            "semester_name",
+            "text"
+          ],
+          [
+            "semester_description",
+            "text"
+          ],
+          [
+            "other_details",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "semester_id"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "Student_Enrolment",
+        "columns": [
+          [
+            "student_enrolment_id",
+            "number"
+          ],
+          [
+            "degree_program_id",
+            "number"
+          ],
+          [
+            "semester_id",
+            "number"
+          ],
+          [
+            "student_id",
+            "number"
+          ],
+          [
+            "other_details",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "student_enrolment_id"
+        ],
+        "foreign_keys": [
+          [
+            "Student_Enrolment.student_id",
+            "Students.student_id"
+          ],
+          [
+            "Student_Enrolment.semester_id",
+            "Semesters.semester_id"
+          ],
+          [
+            "Student_Enrolment.degree_program_id",
+            "Degree_Programs.degree_program_id"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "Degree_Programs.department_id",
+        "Departments.department_id"
+      ],
+      [
+        "Students.permanent_address_id",
+        "Addresses.address_id"
+      ],
+      [
+        "Students.current_address_id",
+        "Addresses.address_id"
+      ],
+      [
+        "Student_Enrolment.student_id",
+        "Students.student_id"
+      ],
+      [
+        "Student_Enrolment.semester_id",
+        "Semesters.semester_id"
+      ],
+      [
+        "Student_Enrolment.degree_program_id",
+        "Degree_Programs.degree_program_id"
+      ]
+    ]
+  },
+  {
+    "db_id": "car_1",
+    "question_id": 29,
+    "question": "What is the average weight of cars each year?",
+    "candidate_tables": [
+      {
+        "table_name": "cars_data",
+        "columns": [
+          [
+            "Id",
+            "number"
+          ],
+          [
+            "MPG",
+            "text"
+          ],
+          [
+            "Cylinders",
+            "number"
+          ],
+          [
+            "Edispl",
+            "number"
+          ],
+          [
+            "Horsepower",
+            "text"
+          ],
+          [
+            "Weight",
+            "number"
+          ],
+          [
+            "Accelerate",
+            "number"
+          ],
+          [
+            "Year",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "Id"
+        ],
+        "foreign_keys": [
+          [
+            "cars_data.Id",
+            "car_names.MakeId"
+          ]
+        ]
+      },
+      {
+        "table_name": "car_makers",
+        "columns": [
+          [
+            "Id",
+            "number"
+          ],
+          [
+            "Maker",
+            "text"
+          ],
+          [
+            "FullName",
+            "text"
+          ],
+          [
+            "Country",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Id"
+        ],
+        "foreign_keys": [
+          [
+            "car_makers.Country",
+            "countries.CountryId"
+          ]
+        ]
+      },
+      {
+        "table_name": "car_names",
+        "columns": [
+          [
+            "MakeId",
+            "number"
+          ],
+          [
+            "Model",
+            "text"
+          ],
+          [
+            "Make",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "MakeId"
+        ],
+        "foreign_keys": [
+          [
+            "car_names.Model",
+            "model_list.Model"
+          ]
+        ]
+      },
+      {
+        "table_name": "countries",
+        "columns": [
+          [
+            "CountryId",
+            "number"
+          ],
+          [
+            "CountryName",
+            "text"
+          ],
+          [
+            "Continent",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "CountryId"
+        ],
+        "foreign_keys": [
+          [
+            "countries.Continent",
+            "continents.ContId"
+          ]
+        ]
+      },
+      {
+        "table_name": "model_list",
+        "columns": [
+          [
+            "ModelId",
+            "number"
+          ],
+          [
+            "Maker",
+            "number"
+          ],
+          [
+            "Model",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "ModelId"
+        ],
+        "foreign_keys": [
+          [
+            "model_list.Maker",
+            "car_makers.Id"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "cars_data.Id",
+        "car_names.MakeId"
+      ],
+      [
+        "car_makers.Country",
+        "countries.CountryId"
+      ],
+      [
+        "car_names.Model",
+        "model_list.Model"
+      ],
+      [
+        "countries.Continent",
+        "continents.ContId"
+      ],
+      [
+        "model_list.Maker",
+        "car_makers.Id"
+      ]
+    ]
+  },
+  {
+    "db_id": "concert_singer",
+    "question_id": 30,
+    "question": "Show the stadium names without any concert.",
+    "candidate_tables": [
+      {
+        "table_name": "stadium",
+        "columns": [
+          [
+            "Stadium_ID",
+            "number"
+          ],
+          [
+            "Location",
+            "text"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Capacity",
+            "number"
+          ],
+          [
+            "Highest",
+            "number"
+          ],
+          [
+            "Lowest",
+            "number"
+          ],
+          [
+            "Average",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "Stadium_ID"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "concert",
+        "columns": [
+          [
+            "concert_ID",
+            "number"
+          ],
+          [
+            "concert_Name",
+            "text"
+          ],
+          [
+            "Theme",
+            "text"
+          ],
+          [
+            "Stadium_ID",
+            "text"
+          ],
+          [
+            "Year",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "concert_ID"
+        ],
+        "foreign_keys": [
+          [
+            "concert.Stadium_ID",
+            "stadium.Stadium_ID"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "concert.Stadium_ID",
+        "stadium.Stadium_ID"
+      ]
+    ]
+  },
+  {
+    "db_id": "flight_2",
+    "question_id": 31,
+    "question": "How many flights do we have?",
+    "candidate_tables": [
+      {
+        "table_name": "flights",
+        "columns": [
+          [
+            "Airline",
+            "number"
+          ],
+          [
+            "FlightNo",
+            "number"
+          ],
+          [
+            "SourceAirport",
+            "text"
+          ],
+          [
+            "DestAirport",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Airline"
+        ],
+        "foreign_keys": [
+          [
+            "flights.DestAirport",
+            "airports.AirportCode"
+          ],
+          [
+            "flights.SourceAirport",
+            "airports.AirportCode"
+          ]
+        ]
+      },
+      {
+        "table_name": "airlines",
+        "columns": [
+          [
+            "uid",
+            "number"
+          ],
+          [
+            "Airline",
+            "text"
+          ],
+          [
+            "Abbreviation",
+            "text"
+          ],
+          [
+            "Country",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "uid"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "airports",
+        "columns": [
+          [
+            "City",
+            "text"
+          ],
+          [
+            "AirportCode",
+            "text"
+          ],
+          [
+            "AirportName",
+            "text"
+          ],
+          [
+            "Country",
+            "text"
+          ],
+          [
+            "CountryAbbrev",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "AirportCode"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": [
+      [
+        "flights.DestAirport",
+        "airports.AirportCode"
+      ],
+      [
+        "flights.SourceAirport",
+        "airports.AirportCode"
+      ]
+    ]
+  },
+  {
+    "db_id": "world_1",
+    "question_id": 32,
+    "question": "What is the language spoken by the largest percentage of people in each country?",
+    "candidate_tables": [
+      {
+        "table_name": "countrylanguage",
+        "columns": [
+          [
+            "CountryCode",
+            "text"
+          ],
+          [
+            "Language",
+            "text"
+          ],
+          [
+            "IsOfficial",
+            "text"
+          ],
+          [
+            "Percentage",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "CountryCode"
+        ],
+        "foreign_keys": [
+          [
+            "countrylanguage.CountryCode",
+            "country.Code"
+          ]
+        ]
+      },
+      {
+        "table_name": "country",
+        "columns": [
+          [
+            "Code",
+            "text"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Continent",
+            "text"
+          ],
+          [
+            "Region",
+            "text"
+          ],
+          [
+            "SurfaceArea",
+            "number"
+          ],
+          [
+            "IndepYear",
+            "number"
+          ],
+          [
+            "Population",
+            "number"
+          ],
+          [
+            "LifeExpectancy",
+            "number"
+          ],
+          [
+            "GNP",
+            "number"
+          ],
+          [
+            "GNPOld",
+            "number"
+          ],
+          [
+            "LocalName",
+            "text"
+          ],
+          [
+            "GovernmentForm",
+            "text"
+          ],
+          [
+            "HeadOfState",
+            "text"
+          ],
+          [
+            "Capital",
+            "number"
+          ],
+          [
+            "Code2",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Code"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": [
+      [
+        "countrylanguage.CountryCode",
+        "country.Code"
+      ]
+    ]
+  },
+  {
+    "db_id": "concert_singer",
+    "question_id": 33,
+    "question": "Show name, country, age for all singers ordered by age from the oldest to the youngest.",
+    "candidate_tables": [
+      {
+        "table_name": "singer",
+        "columns": [
+          [
+            "Singer_ID",
+            "number"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Country",
+            "text"
+          ],
+          [
+            "Song_Name",
+            "text"
+          ],
+          [
+            "Song_release_year",
+            "text"
+          ],
+          [
+            "Age",
+            "number"
+          ],
+          [
+            "Is_male",
+            "others"
+          ]
+        ],
+        "primary_keys": [
+          "Singer_ID"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": []
+  },
+  {
+    "db_id": "singer",
+    "question_id": 34,
+    "question": "What is the name of the singer with the largest net worth?",
+    "candidate_tables": [
+      {
+        "table_name": "singer",
+        "columns": [
+          [
+            "Singer_ID",
+            "number"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Birth_Year",
+            "number"
+          ],
+          [
+            "Net_Worth_Millions",
+            "number"
+          ],
+          [
+            "Citizenship",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Singer_ID"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "song",
+        "columns": [
+          [
+            "Song_ID",
+            "number"
+          ],
+          [
+            "Title",
+            "text"
+          ],
+          [
+            "Singer_ID",
+            "number"
+          ],
+          [
+            "Sales",
+            "number"
+          ],
+          [
+            "Highest_Position",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "Song_ID"
+        ],
+        "foreign_keys": [
+          [
+            "song.Singer_ID",
+            "singer.Singer_ID"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "song.Singer_ID",
+        "singer.Singer_ID"
+      ]
+    ]
+  },
+  {
+    "db_id": "poker_player",
+    "question_id": 35,
+    "question": "What are the names of people who are not from Russia?",
+    "candidate_tables": [
+      {
+        "table_name": "people",
+        "columns": [
+          [
+            "People_ID",
+            "number"
+          ],
+          [
+            "Nationality",
+            "text"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Birth_Date",
+            "text"
+          ],
+          [
+            "Height",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "People_ID"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": []
+  },
+  {
+    "db_id": "battle_death",
+    "question_id": 36,
+    "question": "What are the ids and names of the battles that led to more than 10 people killed in total.",
+    "candidate_tables": [
+      {
+        "table_name": "death",
+        "columns": [
+          [
+            "caused_by_ship_id",
+            "number"
+          ],
+          [
+            "id",
+            "number"
+          ],
+          [
+            "note",
+            "text"
+          ],
+          [
+            "killed",
+            "number"
+          ],
+          [
+            "injured",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "foreign_keys": [
+          [
+            "death.caused_by_ship_id",
+            "ship.id"
+          ]
+        ]
+      },
+      {
+        "table_name": "ship",
+        "columns": [
+          [
+            "lost_in_battle",
+            "number"
+          ],
+          [
+            "id",
+            "number"
+          ],
+          [
+            "name",
+            "text"
+          ],
+          [
+            "tonnage",
+            "text"
+          ],
+          [
+            "ship_type",
+            "text"
+          ],
+          [
+            "location",
+            "text"
+          ],
+          [
+            "disposition_of_ship",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "foreign_keys": [
+          [
+            "ship.lost_in_battle",
+            "battle.id"
+          ]
+        ]
+      },
+      {
+        "table_name": "battle",
+        "columns": [
+          [
+            "id",
+            "number"
+          ],
+          [
+            "name",
+            "text"
+          ],
+          [
+            "date",
+            "text"
+          ],
+          [
+            "bulgarian_commander",
+            "text"
+          ],
+          [
+            "latin_commander",
+            "text"
+          ],
+          [
+            "result",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": [
+      [
+        "death.caused_by_ship_id",
+        "ship.id"
+      ],
+      [
+        "ship.lost_in_battle",
+        "battle.id"
+      ]
+    ]
+  },
+  {
+    "db_id": "poker_player",
+    "question_id": 37,
+    "question": "Return the birth date of the poker player with the lowest earnings.",
+    "candidate_tables": [
+      {
+        "table_name": "poker_player",
+        "columns": [
+          [
+            "Poker_Player_ID",
+            "number"
+          ],
+          [
+            "People_ID",
+            "number"
+          ],
+          [
+            "Final_Table_Made",
+            "number"
+          ],
+          [
+            "Best_Finish",
+            "number"
+          ],
+          [
+            "Money_Rank",
+            "number"
+          ],
+          [
+            "Earnings",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "Poker_Player_ID"
+        ],
+        "foreign_keys": [
+          [
+            "poker_player.People_ID",
+            "people.People_ID"
+          ]
+        ]
+      },
+      {
+        "table_name": "people",
+        "columns": [
+          [
+            "People_ID",
+            "number"
+          ],
+          [
+            "Nationality",
+            "text"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Birth_Date",
+            "text"
+          ],
+          [
+            "Height",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "People_ID"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": [
+      [
+        "poker_player.People_ID",
+        "people.People_ID"
+      ]
+    ]
+  },
+  {
+    "db_id": "car_1",
+    "question_id": 38,
+    "question": "What is the average weight and year for each year?",
+    "candidate_tables": [
+      {
+        "table_name": "cars_data",
+        "columns": [
+          [
+            "Id",
+            "number"
+          ],
+          [
+            "MPG",
+            "text"
+          ],
+          [
+            "Cylinders",
+            "number"
+          ],
+          [
+            "Edispl",
+            "number"
+          ],
+          [
+            "Horsepower",
+            "text"
+          ],
+          [
+            "Weight",
+            "number"
+          ],
+          [
+            "Accelerate",
+            "number"
+          ],
+          [
+            "Year",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "Id"
+        ],
+        "foreign_keys": [
+          [
+            "cars_data.Id",
+            "car_names.MakeId"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "cars_data.Id",
+        "car_names.MakeId"
+      ]
+    ]
+  },
+  {
+    "db_id": "course_teach",
+    "question_id": 39,
+    "question": "What is the hometown of the youngest teacher?",
+    "candidate_tables": [
+      {
+        "table_name": "teacher",
+        "columns": [
+          [
+            "Teacher_ID",
+            "number"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Age",
+            "text"
+          ],
+          [
+            "Hometown",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Teacher_ID"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "course_arrange",
+        "columns": [
+          [
+            "Course_ID",
+            "number"
+          ],
+          [
+            "Teacher_ID",
+            "number"
+          ],
+          [
+            "Grade",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "Course_ID"
+        ],
+        "foreign_keys": [
+          [
+            "course_arrange.Teacher_ID",
+            "teacher.Teacher_ID"
+          ],
+          [
+            "course_arrange.Course_ID",
+            "course.Course_ID"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "course_arrange.Teacher_ID",
+        "teacher.Teacher_ID"
+      ],
+      [
+        "course_arrange.Course_ID",
+        "course.Course_ID"
+      ]
+    ]
+  },
+  {
+    "db_id": "wta_1",
+    "question_id": 40,
+    "question": "What is the first name and country code of the oldest player?",
+    "candidate_tables": [
+      {
+        "table_name": "players",
+        "columns": [
+          [
+            "player_id",
+            "number"
+          ],
+          [
+            "first_name",
+            "text"
+          ],
+          [
+            "last_name",
+            "text"
+          ],
+          [
+            "hand",
+            "text"
+          ],
+          [
+            "birth_date",
+            "time"
+          ],
+          [
+            "country_code",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "player_id"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": []
+  },
+  {
+    "db_id": "wta_1",
+    "question_id": 41,
+    "question": "What is the first name, country code, and birth date of the player with the most winner rank points across all matches?",
+    "candidate_tables": [
+      {
+        "table_name": "matches",
+        "columns": [
+          [
+            "best_of",
+            "number"
+          ],
+          [
+            "draw_size",
+            "number"
+          ],
+          [
+            "loser_age",
+            "number"
+          ],
+          [
+            "loser_entry",
+            "text"
+          ],
+          [
+            "loser_hand",
+            "text"
+          ],
+          [
+            "loser_ht",
+            "number"
+          ],
+          [
+            "loser_id",
+            "number"
+          ],
+          [
+            "loser_ioc",
+            "text"
+          ],
+          [
+            "loser_name",
+            "text"
+          ],
+          [
+            "loser_rank",
+            "number"
+          ],
+          [
+            "loser_rank_points",
+            "number"
+          ],
+          [
+            "loser_seed",
+            "number"
+          ],
+          [
+            "match_num",
+            "number"
+          ],
+          [
+            "minutes",
+            "number"
+          ],
+          [
+            "round",
+            "text"
+          ],
+          [
+            "score",
+            "text"
+          ],
+          [
+            "surface",
+            "text"
+          ],
+          [
+            "tourney_date",
+            "time"
+          ],
+          [
+            "tourney_id",
+            "text"
+          ],
+          [
+            "tourney_level",
+            "text"
+          ],
+          [
+            "tourney_name",
+            "text"
+          ],
+          [
+            "winner_age",
+            "number"
+          ],
+          [
+            "winner_entry",
+            "text"
+          ],
+          [
+            "winner_hand",
+            "text"
+          ],
+          [
+            "winner_ht",
+            "number"
+          ],
+          [
+            "winner_id",
+            "number"
+          ],
+          [
+            "winner_ioc",
+            "text"
+          ],
+          [
+            "winner_name",
+            "text"
+          ],
+          [
+            "winner_rank",
+            "number"
+          ],
+          [
+            "winner_rank_points",
+            "number"
+          ],
+          [
+            "winner_seed",
+            "number"
+          ],
+          [
+            "year",
+            "number"
+          ]
+        ],
+        "primary_keys": [],
+        "foreign_keys": [
+          [
+            "matches.winner_id",
+            "players.player_id"
+          ],
+          [
+            "matches.loser_id",
+            "players.player_id"
+          ]
+        ]
+      },
+      {
+        "table_name": "players",
+        "columns": [
+          [
+            "player_id",
+            "number"
+          ],
+          [
+            "first_name",
+            "text"
+          ],
+          [
+            "last_name",
+            "text"
+          ],
+          [
+            "hand",
+            "text"
+          ],
+          [
+            "birth_date",
+            "time"
+          ],
+          [
+            "country_code",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "player_id"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "rankings",
+        "columns": [
+          [
+            "ranking_date",
+            "time"
+          ],
+          [
+            "ranking",
+            "number"
+          ],
+          [
+            "player_id",
+            "number"
+          ],
+          [
+            "ranking_points",
+            "number"
+          ],
+          [
+            "tours",
+            "number"
+          ]
+        ],
+        "primary_keys": [],
+        "foreign_keys": [
+          [
+            "rankings.player_id",
+            "players.player_id"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "matches.winner_id",
+        "players.player_id"
+      ],
+      [
+        "matches.loser_id",
+        "players.player_id"
+      ],
+      [
+        "rankings.player_id",
+        "players.player_id"
+      ]
+    ]
+  },
+  {
+    "db_id": "employee_hire_evaluation",
+    "question_id": 42,
+    "question": "Give me all the information about hiring.",
+    "candidate_tables": [
+      {
+        "table_name": "hiring",
+        "columns": [
+          [
+            "Shop_ID",
+            "number"
+          ],
+          [
+            "Employee_ID",
+            "number"
+          ],
+          [
+            "Start_from",
+            "text"
+          ],
+          [
+            "Is_full_time",
+            "others"
+          ]
+        ],
+        "primary_keys": [
+          "Employee_ID"
+        ],
+        "foreign_keys": [
+          [
+            "hiring.Employee_ID",
+            "employee.Employee_ID"
+          ],
+          [
+            "hiring.Shop_ID",
+            "shop.Shop_ID"
+          ]
+        ]
+      },
+      {
+        "table_name": "employee",
+        "columns": [
+          [
+            "Employee_ID",
+            "number"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Age",
+            "number"
+          ],
+          [
+            "City",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Employee_ID"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "shop",
+        "columns": [
+          [
+            "Shop_ID",
+            "number"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Location",
+            "text"
+          ],
+          [
+            "District",
+            "text"
+          ],
+          [
+            "Number_products",
+            "number"
+          ],
+          [
+            "Manager_name",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Shop_ID"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": [
+      [
+        "hiring.Employee_ID",
+        "employee.Employee_ID"
+      ],
+      [
+        "hiring.Shop_ID",
+        "shop.Shop_ID"
+      ]
+    ]
+  },
+  {
+    "db_id": "network_1",
+    "question_id": 43,
+    "question": "What is the lowest grade of students who do not have any friends?",
+    "candidate_tables": [
+      {
+        "table_name": "Highschooler",
+        "columns": [
+          [
+            "ID",
+            "number"
+          ],
+          [
+            "name",
+            "text"
+          ],
+          [
+            "grade",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "ID"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "Friend",
+        "columns": [
+          [
+            "student_id",
+            "number"
+          ],
+          [
+            "friend_id",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "student_id"
+        ],
+        "foreign_keys": [
+          [
+            "Friend.friend_id",
+            "Highschooler.ID"
+          ],
+          [
+            "Friend.student_id",
+            "Highschooler.ID"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "Friend.friend_id",
+        "Highschooler.ID"
+      ],
+      [
+        "Friend.student_id",
+        "Highschooler.ID"
+      ]
+    ]
+  },
+  {
+    "db_id": "flight_2",
+    "question_id": 44,
+    "question": "Give the airport code and airport name corresonding to the city Anthony.",
+    "candidate_tables": [
+      {
+        "table_name": "airports",
+        "columns": [
+          [
+            "City",
+            "text"
+          ],
+          [
+            "AirportCode",
+            "text"
+          ],
+          [
+            "AirportName",
+            "text"
+          ],
+          [
+            "Country",
+            "text"
+          ],
+          [
+            "CountryAbbrev",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "AirportCode"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "flights",
+        "columns": [
+          [
+            "Airline",
+            "number"
+          ],
+          [
+            "FlightNo",
+            "number"
+          ],
+          [
+            "SourceAirport",
+            "text"
+          ],
+          [
+            "DestAirport",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Airline"
+        ],
+        "foreign_keys": [
+          [
+            "flights.DestAirport",
+            "airports.AirportCode"
+          ],
+          [
+            "flights.SourceAirport",
+            "airports.AirportCode"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "flights.DestAirport",
+        "airports.AirportCode"
+      ],
+      [
+        "flights.SourceAirport",
+        "airports.AirportCode"
+      ]
+    ]
+  },
+  {
+    "db_id": "car_1",
+    "question_id": 45,
+    "question": "What is the number of carsw ith over 6 cylinders?",
+    "candidate_tables": [
+      {
+        "table_name": "cars_data",
+        "columns": [
+          [
+            "Id",
+            "number"
+          ],
+          [
+            "MPG",
+            "text"
+          ],
+          [
+            "Cylinders",
+            "number"
+          ],
+          [
+            "Edispl",
+            "number"
+          ],
+          [
+            "Horsepower",
+            "text"
+          ],
+          [
+            "Weight",
+            "number"
+          ],
+          [
+            "Accelerate",
+            "number"
+          ],
+          [
+            "Year",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "Id"
+        ],
+        "foreign_keys": [
+          [
+            "cars_data.Id",
+            "car_names.MakeId"
+          ]
+        ]
+      },
+      {
+        "table_name": "car_makers",
+        "columns": [
+          [
+            "Id",
+            "number"
+          ],
+          [
+            "Maker",
+            "text"
+          ],
+          [
+            "FullName",
+            "text"
+          ],
+          [
+            "Country",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Id"
+        ],
+        "foreign_keys": [
+          [
+            "car_makers.Country",
+            "countries.CountryId"
+          ]
+        ]
+      },
+      {
+        "table_name": "car_names",
+        "columns": [
+          [
+            "MakeId",
+            "number"
+          ],
+          [
+            "Model",
+            "text"
+          ],
+          [
+            "Make",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "MakeId"
+        ],
+        "foreign_keys": [
+          [
+            "car_names.Model",
+            "model_list.Model"
+          ]
+        ]
+      },
+      {
+        "table_name": "model_list",
+        "columns": [
+          [
+            "ModelId",
+            "number"
+          ],
+          [
+            "Maker",
+            "number"
+          ],
+          [
+            "Model",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "ModelId"
+        ],
+        "foreign_keys": [
+          [
+            "model_list.Maker",
+            "car_makers.Id"
+          ]
+        ]
+      },
+      {
+        "table_name": "countries",
+        "columns": [
+          [
+            "CountryId",
+            "number"
+          ],
+          [
+            "CountryName",
+            "text"
+          ],
+          [
+            "Continent",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "CountryId"
+        ],
+        "foreign_keys": [
+          [
+            "countries.Continent",
+            "continents.ContId"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "cars_data.Id",
+        "car_names.MakeId"
+      ],
+      [
+        "car_makers.Country",
+        "countries.CountryId"
+      ],
+      [
+        "car_names.Model",
+        "model_list.Model"
+      ],
+      [
+        "model_list.Maker",
+        "car_makers.Id"
+      ],
+      [
+        "countries.Continent",
+        "continents.ContId"
+      ]
+    ]
+  },
+  {
+    "db_id": "poker_player",
+    "question_id": 46,
+    "question": "What is the money rank of the poker player with the highest earnings?",
+    "candidate_tables": [
+      {
+        "table_name": "poker_player",
+        "columns": [
+          [
+            "Poker_Player_ID",
+            "number"
+          ],
+          [
+            "People_ID",
+            "number"
+          ],
+          [
+            "Final_Table_Made",
+            "number"
+          ],
+          [
+            "Best_Finish",
+            "number"
+          ],
+          [
+            "Money_Rank",
+            "number"
+          ],
+          [
+            "Earnings",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "Poker_Player_ID"
+        ],
+        "foreign_keys": [
+          [
+            "poker_player.People_ID",
+            "people.People_ID"
+          ]
+        ]
+      },
+      {
+        "table_name": "people",
+        "columns": [
+          [
+            "People_ID",
+            "number"
+          ],
+          [
+            "Nationality",
+            "text"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Birth_Date",
+            "text"
+          ],
+          [
+            "Height",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "People_ID"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": [
+      [
+        "poker_player.People_ID",
+        "people.People_ID"
+      ]
+    ]
+  },
+  {
+    "db_id": "singer",
+    "question_id": 47,
+    "question": "List the name of singers in ascending order of net worth.",
+    "candidate_tables": [
+      {
+        "table_name": "singer",
+        "columns": [
+          [
+            "Singer_ID",
+            "number"
+          ],
+          [
+            "Name",
+            "text"
+          ],
+          [
+            "Birth_Year",
+            "number"
+          ],
+          [
+            "Net_Worth_Millions",
+            "number"
+          ],
+          [
+            "Citizenship",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Singer_ID"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "song",
+        "columns": [
+          [
+            "Song_ID",
+            "number"
+          ],
+          [
+            "Title",
+            "text"
+          ],
+          [
+            "Singer_ID",
+            "number"
+          ],
+          [
+            "Sales",
+            "number"
+          ],
+          [
+            "Highest_Position",
+            "number"
+          ]
+        ],
+        "primary_keys": [
+          "Song_ID"
+        ],
+        "foreign_keys": [
+          [
+            "song.Singer_ID",
+            "singer.Singer_ID"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "song.Singer_ID",
+        "singer.Singer_ID"
+      ]
+    ]
+  },
+  {
+    "db_id": "flight_2",
+    "question_id": 48,
+    "question": "Which city has most number of departing flights?",
+    "candidate_tables": [
+      {
+        "table_name": "flights",
+        "columns": [
+          [
+            "Airline",
+            "number"
+          ],
+          [
+            "FlightNo",
+            "number"
+          ],
+          [
+            "SourceAirport",
+            "text"
+          ],
+          [
+            "DestAirport",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "Airline"
+        ],
+        "foreign_keys": [
+          [
+            "flights.DestAirport",
+            "airports.AirportCode"
+          ],
+          [
+            "flights.SourceAirport",
+            "airports.AirportCode"
+          ]
+        ]
+      },
+      {
+        "table_name": "airports",
+        "columns": [
+          [
+            "City",
+            "text"
+          ],
+          [
+            "AirportCode",
+            "text"
+          ],
+          [
+            "AirportName",
+            "text"
+          ],
+          [
+            "Country",
+            "text"
+          ],
+          [
+            "CountryAbbrev",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "AirportCode"
+        ],
+        "foreign_keys": []
+      }
+    ],
+    "fk_pairs": [
+      [
+        "flights.DestAirport",
+        "airports.AirportCode"
+      ],
+      [
+        "flights.SourceAirport",
+        "airports.AirportCode"
+      ]
+    ]
+  },
+  {
+    "db_id": "tvshow",
+    "question_id": 49,
+    "question": "What is minimum and maximum share of TV series?",
+    "candidate_tables": [
+      {
+        "table_name": "TV_series",
+        "columns": [
+          [
+            "id",
+            "number"
+          ],
+          [
+            "Episode",
+            "text"
+          ],
+          [
+            "Air_Date",
+            "text"
+          ],
+          [
+            "Rating",
+            "text"
+          ],
+          [
+            "Share",
+            "number"
+          ],
+          [
+            "18_49_Rating_Share",
+            "text"
+          ],
+          [
+            "Viewers_m",
+            "text"
+          ],
+          [
+            "Weekly_Rank",
+            "number"
+          ],
+          [
+            "Channel",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "foreign_keys": [
+          [
+            "TV_series.Channel",
+            "TV_Channel.id"
+          ]
+        ]
+      },
+      {
+        "table_name": "TV_Channel",
+        "columns": [
+          [
+            "id",
+            "text"
+          ],
+          [
+            "series_name",
+            "text"
+          ],
+          [
+            "Country",
+            "text"
+          ],
+          [
+            "Language",
+            "text"
+          ],
+          [
+            "Content",
+            "text"
+          ],
+          [
+            "Pixel_aspect_ratio_PAR",
+            "text"
+          ],
+          [
+            "Hight_definition_TV",
+            "text"
+          ],
+          [
+            "Pay_per_view_PPV",
+            "text"
+          ],
+          [
+            "Package_Option",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "foreign_keys": []
+      },
+      {
+        "table_name": "Cartoon",
+        "columns": [
+          [
+            "id",
+            "number"
+          ],
+          [
+            "Title",
+            "text"
+          ],
+          [
+            "Directed_by",
+            "text"
+          ],
+          [
+            "Written_by",
+            "text"
+          ],
+          [
+            "Original_air_date",
+            "text"
+          ],
+          [
+            "Production_code",
+            "number"
+          ],
+          [
+            "Channel",
+            "text"
+          ]
+        ],
+        "primary_keys": [
+          "id"
+        ],
+        "foreign_keys": [
+          [
+            "Cartoon.Channel",
+            "TV_Channel.id"
+          ]
+        ]
+      }
+    ],
+    "fk_pairs": [
+      [
+        "TV_series.Channel",
+        "TV_Channel.id"
+      ],
+      [
+        "Cartoon.Channel",
+        "TV_Channel.id"
+      ]
+    ]
+  }
+]

@@ -9,15 +9,13 @@ select_stmt ::= select_chain (ws ORDER ws BY ws order_list)? (ws LIMIT ws limit_
 select_chain ::= select_core (ws compound_operator ws select_core)*
 compound_operator ::= UNION (ws ALL)? | INTERSECT | EXCEPT
 
-select_core ::= SELECT ws distinct? ws? result_columns from_clause? where_clause? group_clause? having_clause? order_by_clause? limit_clause_opt?
+select_core ::= SELECT ws distinct? ws? result_columns from_clause? where_clause? group_clause? having_clause?
 distinct ::= DISTINCT | ALL
 
 from_clause ::= ws FROM ws from_sources
 where_clause ::= ws WHERE ws expr
 group_clause ::= ws GROUP ws BY ws expr_list
 having_clause ::= ws HAVING ws expr
-order_by_clause ::= ws ORDER ws BY ws order_list
-limit_clause_opt ::= ws LIMIT ws limit_clause
 
 result_columns ::= result_column (ws? "," ws? result_column)*
 result_column ::= "*" | table_qualifier "*" | expr (ws alias)?

@@ -15,7 +15,7 @@ from gbnf.grammar_graph.type_guards import (
 from lmformatenforcer import CharacterLevelParser, CharacterLevelParserConfig
 from lmformatenforcer.integrations.transformers import build_transformers_prefix_allowed_tokens_fn
 
-DEFAULT_SQLITE_GBNF = Path(__file__).resolve().parent / "sql" / "grammars" / "sqlite.gbnf"
+DEFAULT_SQLITE_GBNF = Path(__file__).resolve().parent / "sql_grammar/sqlite.gbnf"
 
 
 def load_sqlite_grammar(path: str | Path = DEFAULT_SQLITE_GBNF) -> str:

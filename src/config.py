@@ -14,7 +14,7 @@ class SpiderPaths:
     database_dir: Path | None = None
 
     def __post_init__(self) -> None:
-        base = self.data_dir or (self.root / "data" / "spider_data")
+        base = self.data_dir or (self.root / "spider_dataset" / "spider_data")
         self.data_dir = base
         self.tables_json = self.tables_json or (base / "tables.json")
         self.database_dir = self.database_dir or (base / "database")
