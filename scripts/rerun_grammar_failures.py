@@ -72,7 +72,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--max-new-tokens",
         type=int,
-        default=256,
+        default=1024,
         help="Max new tokens for generation.",
     )
     parser.add_argument(
@@ -127,6 +127,17 @@ def write_indices(indices: List[int], path: Path) -> None:
     with path.open("w", encoding="utf-8") as fp:
         for idx in indices:
             fp.write(f"{idx}\n")
+
+
+def detect_syntax_error(sql: str) -> str | None:
+    """Return the sqlite error string if the SQL has a syntax issue, else None."""
+    try:
+        sqlite3.connect(":memory:").execute(sql)
+    except Exception as exc:
+        msg = str(exc).lower()
+        if any(k in msg for k in ("syntax error", "incomplete input", "unrecognized token", "unterminated")):
+            return str(exc)
+    return None
 
 
 def normalize_sql(sql: str) -> str:
@@ -243,6 +254,10 @@ def rerun(entries: list[dict], args: argparse.Namespace) -> None:
             full_text = tokenizer.decode(output_ids[0], skip_special_tokens=True)
             pred_sql = full_text.split("SQL:", 1)[1].strip() if "SQL:" in full_text else full_text.strip()
             record["pred_sql"] = pred_sql
+
+            syntax_error = detect_syntax_error(pred_sql)
+            if syntax_error:
+                record["syntax_error"] = syntax_error
 
             em, exec_match = evaluate_pair(DATABASE_DIR, ex["db_id"], ex["gold_sql"], pred_sql)
             record["em"] = em
