@@ -38,24 +38,45 @@ def make_fk_comments(fk_pairs: List[List[str]]) -> str:
 # -----------------------------------------------------
 # Helper: Build prompt
 # -----------------------------------------------------
-def build_prompt(question: str, create_tables: List[str], fk_text: str):
-    tables_block = "\n\n".join(create_tables)
 
-    return f"""
-        ## Task
-        Generate a SQL query to answer the following question:
-        `{question}`
+# GENERAL SQLCODER PROMPTING TEMPLATE
+# def build_prompt(question: str, create_tables: List[str], fk_text: str):
+#     tables_block = "\n\n".join(create_tables)
 
-        ### Database Schema
-        This query will run on a database whose schema is represented in this string:
-        {tables_block}
+#     return f"""
+#         ## Task
+#         Generate a SQL query to answer the following question:
+#         `{question}`
 
-        {fk_text}
+#         ### Database Schema
+#         This query will run on a database whose schema is represented in this string:
+#         {tables_block}
 
-        ### SQL
-        Given the database schema, here is the SQL query that answers `{question}`:
-        ```sql
-        """.strip()
+#         {fk_text}
+
+#         ### SQL
+#         Given the database schema, here is the SQL query that answers `{question}`:
+#         ```sql
+#         """.strip()
+
+
+# GBNF PROMPTING TEMPLATE WITHOUT ANY BACKTICKS: `
+def build_prompt(question, create_blocks, fk_text):
+    tables_block = "\n\n".join(create_blocks)
+
+    prompt = (
+        "## Task\n"
+        "Generate a SQL query to answer the following question:\n"
+        f"{question}\n\n"
+        "### Database Schema\n"
+        "This query will run on a database whose schema is represented as:\n"
+        f"{tables_block}\n\n"
+        f"{fk_text}\n\n"
+        "### SQL\n"
+        "Given the database schema, Write only the SQL query that answers the question:\n"
+    )
+
+    return prompt
 
 # Extra prompt guidance: Use the **fewest tables necessary** to answer the question, and do **not** introduce extra joins or columns that are not clearly required.
 
