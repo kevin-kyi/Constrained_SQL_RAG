@@ -217,6 +217,6 @@ if __name__ == "__main__":
         out_schema=PROJECT_ROOT / "schema.json",
         out_questions=PROJECT_ROOT / "questions_used.jsonl",
         top_k=5,
-        num_samples=50,
+        num_samples=200,
         seed=0,
     )
