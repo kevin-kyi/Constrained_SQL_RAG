@@ -411,31 +411,25 @@ def load_jsonl(path: Path) -> Iterable[Dict[str, Any]]:
 
 
 def extract_sql(generated_text: str) -> str:
-    lower = generated_text.lower()
+    text = generated_text.strip()
+    lower = text.lower()
 
-    # 1) ```sql fenced block
     if "```sql" in lower:
         try:
-            _, after = generated_text.split("```sql", 1)
+            _, after = text.split("```sql", 1)
             sql_body = after.split("```", 1)[0]
             return sql_body.strip()
         except Exception:
             pass
 
-    # 2) Any fenced block
-    if "```" in generated_text:
+    if "```" in text:
         try:
-            parts = generated_text.split("```")
+            parts = text.split("```")
             return parts[-1].strip()
         except Exception:
             pass
 
-    # 3) last 'select '
-    idx = lower.rfind("select ")
-    if idx != -1:
-        return generated_text[idx:].strip()
-
-    return generated_text.strip()
+    return text
 
 
 def execute_sql(db_id: str, sql: str) -> Dict[str, Any]:
@@ -560,6 +554,8 @@ class SQLCoderGBNFWrapper:
 
     def generate_sql(self, prompt: str) -> str:
         inputs = self.tokenizer(prompt, return_tensors="pt").to(self.model.device)
+        input_ids = inputs["input_ids"]
+        input_len = input_ids.shape[1]
 
         with torch.no_grad():
             gen_ids = self.model.generate(
@@ -572,7 +568,8 @@ class SQLCoderGBNFWrapper:
                 prefix_allowed_tokens_fn=self.prefix_allowed_tokens_fn,
             )
 
-        text = self.tokenizer.decode(gen_ids[0], skip_special_tokens=True)
+        completion_ids = gen_ids[0][input_len:]
+        text = self.tokenizer.decode(completion_ids, skip_special_tokens=True)
         return extract_sql(text)
 
 

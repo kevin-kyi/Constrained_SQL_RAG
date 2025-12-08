@@ -66,14 +66,14 @@ def build_prompt(question, create_blocks, fk_text):
 
     prompt = (
         "## Task\n"
-        "Generate a SQL query to answer the following question:\n"
+        "Generate a SQLite SQL query to answer the following question:\n"
         f"{question}\n\n"
         "### Database Schema\n"
         "This query will run on a database whose schema is represented as:\n"
         f"{tables_block}\n\n"
         f"{fk_text}\n\n"
         "### SQL\n"
-        "Given the database schema, Write only the SQL query that answers the question:\n"
+        "Given the database schema, Write only the valid SQLite SQL query that answers the question:\n"
     )
 
     return prompt
