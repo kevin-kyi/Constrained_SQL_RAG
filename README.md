@@ -19,3 +19,10 @@ Once you follow these step /spider_dataset should have /spider_dataset/spider wh
 - SQL syntax is enforced with a SQLite-flavored GBNF grammar at `src/sql/grammars/sqlite.gbnf`.
 - `src/sql_gbnf.py` exposes `build_sqlite_prefix_allowed_tokens_fn(tokenizer, grammar_text)` to plug into `transformers.generate`.
 - The SQLCoder smoke test (`src/test_scripts/test_sqlcoder.py`) now uses the grammar by default; disable with `USE_GBNF=0` or point to a custom grammar via `SQLITE_GBNF_PATH`.
+
+## LoRA fine-tuning SQLCoder on Spider
+- Install deps: `pip install -r requirements.txt` (adds `datasets`, `peft`, `bitsandbytes`, `accelerate` for QLoRA).
+- Run QLoRA training (requires a CUDA GPU):  
+  `python src/train_sqlcoder_lora.py --output_dir outputs/sqlcoder-lora-spider --num_train_epochs 3 --per_device_train_batch_size 1 --gradient_accumulation_steps 8 --eval_steps 200 --save_steps 400`
+- Flags: `--include_train_others` to append Spider `train_others.json`, `--max_train_samples`/`--max_eval_samples` to cap records, `--no_4bit` for full-precision LoRA (mandatory on Python 3.13+), `--lora_r`/`--lora_alpha`/`--lora_dropout` for adapter sizing.
+- Outputs: `output_dir` stores the LoRA adapter weights and tokenizer; load with `peft.PeftModel.from_pretrained` alongside the base `defog/sqlcoder-7b-2`.
