@@ -1,13 +1,13 @@
-# Ignore downloaded Spider dataset
 spider_dataset/*
 !spider_dataset/.gitkeep
 
-
-# Ignore caches
 data/
 *.sqlite
 
-# Python ignores
 __pycache__/
 *.pyc
 .env
+
+outputs/outputs/
+*.pt
+*.safetensors
